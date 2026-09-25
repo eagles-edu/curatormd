@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="520" viewBox="0 0 1120 520" role="img" aria-labelledby="title desc">
+  <title id="title">CuratorMD's three supervised models and separate QA stream</title>
+  <desc id="desc">A bounded structured feature vector is frozen into a pre-review prediction snapshot. Binary logistic regression predicts disposition, ordinal cumulative logistic regression predicts priority, and multinomial softmax predicts archive for approved examples. Human labels score those predictions. Later QA and retrospective outcomes are kept outside the original label models.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker>
+    <style>
+      text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#172033}.head{font-size:18px;font-weight:700}.copy{font-size:14px}.small{font-size:12px;fill:#475569}.box{rx:13;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1120" height="520" fill="#f8fafc" rx="18"/>
+  <text x="36" y="42" class="head">Prediction is frozen before review; human judgment supplies the training label</text>
+  <rect class="box" x="35" y="92" width="205" height="110" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="55" y="122" class="head">Structured X</text>
+  <text x="55" y="150" class="copy"><tspan x="55">10 categorical fields</tspan><tspan x="55" dy="20">11 booleans · 6 counts</tspan><tspan x="55" dy="20">no free text</tspan></text>
+  <path d="M242 148H282" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="box" x="292" y="92" width="230" height="110" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="312" y="122" class="head">One-hot encoding</text>
+  <text x="312" y="150" class="copy"><tspan x="312">category indicators</tspan><tspan x="312" dy="20">true / false indicators</tspan><tspan x="312" dy="20">log(1 + count) values</tspan></text>
+  <path d="M524 148H564" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="box" x="574" y="76" width="260" height="142" fill="#ede9fe" stroke="#7c3aed"/>
+  <text x="594" y="106" class="head">Frozen prediction snapshot</text>
+  <text x="594" y="136" class="copy"><tspan x="594">approval probability</tspan><tspan x="594" dy="20">priority distribution: 0–5</tspan><tspan x="594" dy="20">archive probabilities</tspan><tspan x="594" dy="20">model + feature versions</tspan></text>
+  <path d="M836 148H878" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="box" x="888" y="92" width="197" height="110" fill="#fef3c7" stroke="#d97706"/>
+  <text x="908" y="122" class="head">Human label Y</text>
+  <text x="908" y="150" class="copy"><tspan x="908">disposition</tspan><tspan x="908" dy="20">priority + archive</tspan><tspan x="908" dy="20">revisions supersede</tspan></text>
+  <path d="M986 210V270H914" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect class="box" x="37" y="286" width="330" height="145" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="57" y="318" class="head">1 · Binary logistic</text>
+  <text x="57" y="348" class="copy"><tspan x="57">P(approved | X)</tspan><tspan x="57" dy="21">Ridge-regularized MAP fit</tspan><tspan x="57" dy="21">minimum 12 labels + both outcomes</tspan><tspan x="57" dy="21">learns disposition only</tspan></text>
+  <rect class="box" x="395" y="286" width="330" height="145" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="415" y="318" class="head">2 · Ordinal cumulative logit</text>
+  <text x="415" y="348" class="copy"><tspan x="415">P(priority ≤ k | X), k = 0…4</tspan><tspan x="415" dy="21">five ordered, monotone thresholds</tspan><tspan x="415" dy="21">shared feature slope (proportional odds)</tspan><tspan x="415" dy="21">minimum 12 labels + 2 priority levels</tspan></text>
+  <rect class="box" x="753" y="286" width="332" height="145" fill="#ecfdf5" stroke="#059669"/>
+  <text x="773" y="318" class="head">3 · Multinomial softmax</text>
+  <text x="773" y="348" class="copy"><tspan x="773">P(archive | X, approved)</tspan><tspan x="773" dy="21">agents · sop · history · lessons</tspan><tspan x="773" dy="21">same feature vector; rejected rows excluded</tspan><tspan x="773" dy="21">minimum 12 approvals + 2 archive classes</tspan></text>
+  <path d="M202 434V468H473M560 434V468M919 434V468H647" fill="none" stroke="#475569" stroke-width="2"/>
+  <rect x="296" y="470" width="526" height="34" rx="10" fill="#fff" stroke="#94a3b8"/>
+  <text x="315" y="493" class="copy">Prospective metrics compare the frozen prediction to the later human label.</text>
+  <rect x="851" y="450" width="234" height="52" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="868" y="472" class="small">Separate later QA / utility record</text>
+  <text x="868" y="490" class="small">not a feature or original label</text>
+</svg>

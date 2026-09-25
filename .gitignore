@@ -1,0 +1,11 @@
+# CuratorMD project-local private state
+.curatormd/
+
+# Local development artifacts
+__pycache__/
+*.py[cod]
+.venv/
+node_modules/
+coverage/
+dist/
+*.vsix

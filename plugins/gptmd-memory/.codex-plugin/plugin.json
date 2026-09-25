@@ -1,0 +1,31 @@
+{
+  "name": "gptmd-memory",
+  "version": "0.4.7+codex.20260926",
+  "description": "CuratorMD: local-only project intelligence, reviewable persistence, and safe evidence-based curation for Codex projects.",
+  "author": {
+    "name": "CuratorMD project"
+  },
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "persistence",
+    "self-improvement",
+    "project-context",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "CuratorMD",
+    "shortDescription": "Curate safe project intelligence locally.",
+    "longDescription": "CuratorMD captures bounded redacted project-scoped observations, generates human-reviewable proposals, records separate local learning and QA outcomes, and promotes only explicitly approved decisions into the four persistence documents. Learning state is isolated by profile and repository root; automation stays disabled until explicitly authorized evidence gates pass.",
+    "developerName": "CuratorMD project",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Recall the relevant CuratorMD project knowledge before coding.",
+      "Record this reviewed decision as durable project knowledge.",
+      "Capture the verified lesson from this failure without storing secrets."
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

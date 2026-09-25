@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="title desc">
+  <title id="title">Shared CuratorMD code with repository and profile isolation</title>
+  <desc id="desc">One shared local CuratorMD codebase serves four Hermes profiles. Each profile and repository root combination receives its own external state directory, models, observations, QA outcomes, and journal. Repository inboxes remain local and ignored.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker>
+    <style>
+      text{font-family:Inter,ui-sans-serif,system-ui,sans-serif;fill:#172033}.head{font-size:18px;font-weight:700}.copy{font-size:14px}.small{font-size:12px;fill:#475569}.box{rx:13;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1120" height="470" fill="#f8fafc" rx="18"/>
+  <text x="36" y="42" class="head">One implementation; independent learning boundaries</text>
+  <rect class="box" x="35" y="98" width="265" height="130" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="58" y="132" class="head">Shared source</text>
+  <text x="58" y="163" class="copy"><tspan x="58">plugins/gptmd-memory/scripts</tspan><tspan x="58" dy="22">MCP + curation + learning</tspan><tspan x="58" dy="22">single reviewed implementation</tspan></text>
+  <path d="M302 162H344M344 162V105M344 162V405" fill="none" stroke="#475569" stroke-width="2"/>
+  <g>
+    <path d="M344 105H377M344 205H377M344 305H377M344 405H377" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect class="box" x="388" y="70" width="310" height="70" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="408" y="99" class="head">consumer-coding</text><text x="408" y="122" class="small">/path/to/consumer-repo</text>
+    <rect class="box" x="388" y="170" width="310" height="70" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="408" y="199" class="head">nuxt008-coding</text><text x="408" y="222" class="small">/home/eaglesvn/dockerz/nuxt008</text>
+    <rect class="box" x="388" y="270" width="310" height="70" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="408" y="299" class="head">ioexpress-coding</text><text x="408" y="322" class="small">/home/eaglesvn/dockerz/ioexpress</text>
+    <rect class="box" x="388" y="370" width="310" height="70" fill="#fff7ed" stroke="#ea580c"/>
+    <text x="408" y="399" class="head">vuepy05-coding</text><text x="408" y="422" class="small">/home/eaglesvn/dockerz/vuepy05</text>
+  </g>
+  <g>
+    <path d="M700 105H738M700 205H738M700 305H738M700 405H738" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect class="box" x="749" y="70" width="337" height="70" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="769" y="99" class="head">Isolated external state</text><text x="769" y="122" class="small">profile + repository hash → own model and labels</text>
+    <rect class="box" x="749" y="170" width="337" height="70" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="769" y="199" class="head">Isolated external state</text><text x="769" y="222" class="small">profile + repository hash → own model and labels</text>
+    <rect class="box" x="749" y="270" width="337" height="70" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="769" y="299" class="head">Isolated external state</text><text x="769" y="322" class="small">profile + repository hash → own model and labels</text>
+    <rect class="box" x="749" y="370" width="337" height="70" fill="#f0fdf4" stroke="#16a34a"/>
+    <text x="769" y="399" class="head">Isolated external state</text><text x="769" y="422" class="small">profile + repository hash → own model and labels</text>
+  </g>
+</svg>

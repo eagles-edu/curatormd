@@ -1,0 +1,10 @@
+{
+  "typeCheckingMode": "strict",
+  "include": ["plugins/gptmd-memory/scripts/curation_learning.py"],
+  "executionEnvironments": [
+    {
+      "root": "plugins/gptmd-memory/scripts",
+      "extraPaths": ["plugins/gptmd-memory/scripts"]
+    }
+  ]
+}

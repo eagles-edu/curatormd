@@ -1,0 +1,4 @@
+interface:
+  display_name: "Enable Hermes Repository"
+  short_description: "Set up an isolated Hermes and CuratorMD profile for a repository"
+  default_prompt: "Enable this repository as an isolated Hermes and CuratorMD project."

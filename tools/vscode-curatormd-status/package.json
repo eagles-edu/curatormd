@@ -1,0 +1,51 @@
+{
+  "name": "curatormd-status",
+  "displayName": "CuratorMD Status LED",
+  "description": "Show Hermes, Codex, and CuratorMD health, open review notes, and approve candidates in the editor.",
+  "version": "0.2.5",
+  "publisher": "curatormd",
+  "license": "UNLICENSED",
+  "engines": {
+    "vscode": ">=1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:persistence/AGENTS.md"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "curatormdStatus.refresh",
+        "title": "CuratorMD: Refresh Status"
+      },
+      {
+        "command": "curatormdStatus.showDetails",
+        "title": "CuratorMD: Show Status Details"
+      },
+      {
+        "command": "curatormdStatus.openReviews",
+        "title": "CuratorMD: Open Review Notes"
+      }
+    ],
+    "configuration": {
+      "title": "CuratorMD Status LED",
+      "properties": {
+        "curatormdStatus.profile": {
+          "type": "string",
+          "default": "",
+          "description": "Hermes profile used for the project-bound CuratorMD integration."
+        },
+        "curatormdStatus.pollSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "description": "Seconds between local health checks."
+        }
+      }
+    }
+  }
+}
