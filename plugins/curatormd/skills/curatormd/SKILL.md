@@ -1,5 +1,5 @@
 ---
-name: gptmd-memory
+name: curatormd
 description: Use CuratorMD for project memory, persistence, session handoffs, architecture decisions, repeatable procedures, verified failures, native observations, and safe reviewable curation across Codex sessions.
 ---
 
@@ -7,6 +7,11 @@ description: Use CuratorMD for project memory, persistence, session handoffs, ar
 
 Use CuratorMD as the project's durable, reviewable knowledge layer. The
 application source remains outside its write boundary.
+
+For development work, start with a concise problem-and-success summary, then
+complete troubleshooting, remediation plan, implementation, testing, and
+completion in that order. Analyze errors and continue safe repair; if blocked,
+state the cause and concrete manual and automatic recovery paths.
 
 ## Required workflow
 

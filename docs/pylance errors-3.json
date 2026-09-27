@@ -1,0 +1,925 @@
+[{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "W0707:raise-missing-from",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/warning/raise-missing-from.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 4,
+	"message": "Consider explicitly re-raising using 'except FileExistsError as exc' and 'raise EnableError(f'CuratorMD project marker belongs to a different root/profile: {marker}') from exc'",
+	"source": "Pylint",
+	"startLineNumber": 181,
+	"startColumn": 13,
+	"endLineNumber": 181,
+	"endColumn": 105,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "W0707:raise-missing-from",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/warning/raise-missing-from.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 4,
+	"message": "Consider explicitly re-raising using 'raise SystemExit(2) from exc'",
+	"source": "Pylint",
+	"startLineNumber": 380,
+	"startColumn": 9,
+	"endLineNumber": 380,
+	"endColumn": 28,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0115:missing-class-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-class-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing class docstring",
+	"source": "Pylint",
+	"startLineNumber": 25,
+	"startColumn": 1,
+	"endLineNumber": 25,
+	"endColumn": 18,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 38,
+	"startColumn": 1,
+	"endLineNumber": 38,
+	"endColumn": 17,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 46,
+	"startColumn": 1,
+	"endLineNumber": 46,
+	"endColumn": 8,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 53,
+	"startColumn": 1,
+	"endLineNumber": 53,
+	"endColumn": 25,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (122/100)",
+	"source": "Pylint",
+	"startLineNumber": 64,
+	"startColumn": 1,
+	"endLineNumber": 64,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 75,
+	"startColumn": 1,
+	"endLineNumber": 75,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (114/100)",
+	"source": "Pylint",
+	"startLineNumber": 77,
+	"startColumn": 1,
+	"endLineNumber": 77,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (101/100)",
+	"source": "Pylint",
+	"startLineNumber": 78,
+	"startColumn": 1,
+	"endLineNumber": 78,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 87,
+	"startColumn": 1,
+	"endLineNumber": 87,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 87,
+	"startColumn": 1,
+	"endLineNumber": 87,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 92,
+	"startColumn": 1,
+	"endLineNumber": 92,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 115,
+	"startColumn": 1,
+	"endLineNumber": 115,
+	"endColumn": 14,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 135,
+	"startColumn": 1,
+	"endLineNumber": 135,
+	"endColumn": 18,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 147,
+	"startColumn": 1,
+	"endLineNumber": 147,
+	"endColumn": 21,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 158,
+	"startColumn": 1,
+	"endLineNumber": 158,
+	"endColumn": 26,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 167,
+	"startColumn": 1,
+	"endLineNumber": 167,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 181,
+	"startColumn": 1,
+	"endLineNumber": 181,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 189,
+	"startColumn": 1,
+	"endLineNumber": 189,
+	"endColumn": 30,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 223,
+	"startColumn": 1,
+	"endLineNumber": 223,
+	"endColumn": 23,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (121/100)",
+	"source": "Pylint",
+	"startLineNumber": 231,
+	"startColumn": 1,
+	"endLineNumber": 231,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (114/100)",
+	"source": "Pylint",
+	"startLineNumber": 239,
+	"startColumn": 1,
+	"endLineNumber": 239,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (114/100)",
+	"source": "Pylint",
+	"startLineNumber": 240,
+	"startColumn": 1,
+	"endLineNumber": 240,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (103/100)",
+	"source": "Pylint",
+	"startLineNumber": 241,
+	"startColumn": 1,
+	"endLineNumber": 241,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (120/100)",
+	"source": "Pylint",
+	"startLineNumber": 242,
+	"startColumn": 1,
+	"endLineNumber": 242,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (110/100)",
+	"source": "Pylint",
+	"startLineNumber": 249,
+	"startColumn": 1,
+	"endLineNumber": 249,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (105/100)",
+	"source": "Pylint",
+	"startLineNumber": 250,
+	"startColumn": 1,
+	"endLineNumber": 250,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (105/100)",
+	"source": "Pylint",
+	"startLineNumber": 252,
+	"startColumn": 1,
+	"endLineNumber": 252,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (102/100)",
+	"source": "Pylint",
+	"startLineNumber": 259,
+	"startColumn": 1,
+	"endLineNumber": 259,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (129/100)",
+	"source": "Pylint",
+	"startLineNumber": 260,
+	"startColumn": 1,
+	"endLineNumber": 260,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 276,
+	"startColumn": 1,
+	"endLineNumber": 276,
+	"endColumn": 21,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0116:missing-function-docstring",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/missing-function-docstring.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Missing function or method docstring",
+	"source": "Pylint",
+	"startLineNumber": 281,
+	"startColumn": 1,
+	"endLineNumber": 281,
+	"endColumn": 9,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (109/100)",
+	"source": "Pylint",
+	"startLineNumber": 287,
+	"startColumn": 1,
+	"endLineNumber": 287,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (112/100)",
+	"source": "Pylint",
+	"startLineNumber": 288,
+	"startColumn": 1,
+	"endLineNumber": 288,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (116/100)",
+	"source": "Pylint",
+	"startLineNumber": 289,
+	"startColumn": 1,
+	"endLineNumber": 289,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (111/100)",
+	"source": "Pylint",
+	"startLineNumber": 294,
+	"startColumn": 1,
+	"endLineNumber": 294,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (109/100)",
+	"source": "Pylint",
+	"startLineNumber": 302,
+	"startColumn": 1,
+	"endLineNumber": 302,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (127/100)",
+	"source": "Pylint",
+	"startLineNumber": 327,
+	"startColumn": 1,
+	"endLineNumber": 327,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 328,
+	"startColumn": 1,
+	"endLineNumber": 328,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (109/100)",
+	"source": "Pylint",
+	"startLineNumber": 331,
+	"startColumn": 1,
+	"endLineNumber": 331,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (115/100)",
+	"source": "Pylint",
+	"startLineNumber": 346,
+	"startColumn": 1,
+	"endLineNumber": 346,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (104/100)",
+	"source": "Pylint",
+	"startLineNumber": 354,
+	"startColumn": 1,
+	"endLineNumber": 354,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py",
+	"owner": "_generated_diagnostic_collection_name_#3",
+	"code": {
+		"value": "C0301:line-too-long",
+		"target": {
+			"$mid": 1,
+			"path": "/en/latest/user_guide/messages/convention/line-too-long.html",
+			"scheme": "https",
+			"authority": "pylint.readthedocs.io"
+		}
+	},
+	"severity": 2,
+	"message": "Line too long (106/100)",
+	"source": "Pylint",
+	"startLineNumber": 356,
+	"startColumn": 1,
+	"endLineNumber": 356,
+	"endColumn": 1,
+	"modelVersionId": 1,
+	"origin": "extHost1"
+}]

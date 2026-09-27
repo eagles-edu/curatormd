@@ -46,7 +46,7 @@ def _as_object(value: Any) -> dict[str, Any]:
 
 
 def learning_root(root: Path, profile: str | None = None) -> Path:
-    from gptmd_memory import plugin_data_root
+    from curatormd import plugin_data_root
     return plugin_data_root(root, profile) / "learning"
 
 
@@ -56,13 +56,23 @@ def _json_read(path: Path, default: Any) -> Any:
     except FileNotFoundError:
         return default
     except (OSError, json.JSONDecodeError) as exc:
-        from gptmd_memory import CuratorError
+        from curatormd import CuratorError
         raise CuratorError(f"learning data is unreadable: {path.name}") from exc
 
 
 def _write(path: Path, value: Any) -> None:
-    from gptmd_memory import atomic_json
+    from curatormd import atomic_json
     atomic_json(path, value)
+
+
+def read_json(path: Path, default: Any) -> Any:
+    """Read a scoped JSON file for the sibling CuratorMD runtime module."""
+    return _json_read(path, default)
+
+
+def write_json(path: Path, value: Any) -> None:
+    """Write JSON through the sibling CuratorMD runtime module."""
+    _write(path, value)
 
 
 def _record_path(root: Path, profile: str | None, collection: str, record_id: str) -> Path:
@@ -83,7 +93,7 @@ def update_observation(root: Path, profile: str | None, path: Path, update: Any)
         fcntl.flock(handle.fileno(), fcntl.LOCK_EX)
         observation = _json_read(path, None)
         if not isinstance(observation, dict):
-            from gptmd_memory import CuratorError
+            from curatormd import CuratorError
             raise CuratorError("learning observation disappeared during update")
         update(observation)
         _write(path, observation)
@@ -92,7 +102,7 @@ def update_observation(root: Path, profile: str | None, path: Path, update: Any)
 
 
 def _bounded_text(value: Any, limit: int = 1200) -> str:
-    from gptmd_memory import redact_text
+    from curatormd import redact_text
     if not isinstance(value, str):
         return ""
     value = redact_text(value).replace("\x00", " ").strip()
@@ -101,12 +111,12 @@ def _bounded_text(value: Any, limit: int = 1200) -> str:
 
 def safe_summary(payload: Any) -> dict[str, Any]:
     """Build a bounded local summary before generic payload redaction."""
-    from gptmd_memory import redact_text
+    from curatormd import redact_text
     if not isinstance(payload, dict):
         return {"text": None, "status": "unavailable", "bounded": True, "sanitized": True, "generator": "local"}
     payload = cast(dict[str, Any], payload)
     supplied = _as_object(payload.get("review_safe_summary"))
-    text = _bounded_text(supplied.get("text"))
+    text = _bounded_text(supplied.get("text"), 10_000)
     if text:
         return {"text": text, "status": "generated", "bounded": True, "sanitized": True, "generator": str(supplied.get("generator") or "producer")[:80]}
     result = _as_object(payload.get("result"))
@@ -144,7 +154,7 @@ def safe_summary(payload: Any) -> dict[str, Any]:
 
 
 def extract_features(record: dict[str, Any]) -> dict[str, Any]:
-    from gptmd_memory import redact_payload
+    from curatormd import redact_payload
     raw_payload = record.get("payload")
     payload = _as_object(raw_payload)
     result = _as_object(payload.get("result"))
@@ -188,6 +198,9 @@ def meaningful(record: dict[str, Any]) -> tuple[bool, str]:
     if event in {"agent:start", "agent:step"}:
         return False, "routine lifecycle event"
     payload = _as_object(record.get("payload"))
+    summary = _as_object(payload.get("review_safe_summary"))
+    if payload.get("candidate_type") == "significant_development_event":
+        return False, "cue-only SDE; submit a full-thread synthesis with sde_parse"
     result = _as_object(payload.get("result"))
     if any(result.get(key) is True for key in (
         "changed_project", "decision_made", "configuration_changed",
@@ -201,7 +214,6 @@ def meaningful(record: dict[str, Any]) -> tuple[bool, str]:
         isinstance(failed, int) and failed > 0
     ):
         return True, "failure or incomplete result reported"
-    summary = _as_object(payload.get("review_safe_summary"))
     summary_text = summary.get("text")
     if isinstance(summary_text, str) and summary_text.strip():
         return True, "bounded semantic summary available"
@@ -627,7 +639,7 @@ def save_observation(root: Path, profile: str | None, observation: dict[str, Any
     existing = _json_read(path, None)
     if existing is not None:
         if existing != observation:
-            from gptmd_memory import CuratorError
+            from curatormd import CuratorError
             raise CuratorError("a different learning observation already exists for this record revision")
         return {"written": False, "duplicate": True, "path": str(path)}
     _write(path, observation)
@@ -636,7 +648,7 @@ def save_observation(root: Path, profile: str | None, observation: dict[str, Any
 
 def record_qa_outcome(root: Path, profile: str | None, record_id: str, outcome: dict[str, Any]) -> dict[str, Any]:
     path = _record_path(root, profile, "qa-outcomes", f"{record_id}-{outcome['outcome_id']}")
-    from gptmd_memory import create_json_once
+    from curatormd import create_json_once
     if not create_json_once(path, outcome):
         return {"written": False, "duplicate": True, "outcome_id": outcome["outcome_id"]}
     return {"written": True, "duplicate": False, "outcome_id": outcome["outcome_id"]}
@@ -644,13 +656,13 @@ def record_qa_outcome(root: Path, profile: str | None, record_id: str, outcome: 
 
 def record_retrospective(root: Path, profile: str | None, record_id: str, review: dict[str, Any]) -> dict[str, Any]:
     path = _record_path(root, profile, "retrospective-audits", f"{record_id}-r{review['review_revision']}")
-    from gptmd_memory import create_json_once
+    from curatormd import create_json_once
     if not create_json_once(path, review):
         existing = _json_read(path, {})
         fields = ("still_correct", "usefulness", "germane", "should_have_recorded")
         if all(existing.get(field) == review.get(field) for field in fields):
             return {"written": False, "duplicate": True, "record_id": record_id, "review_revision": review["review_revision"]}
-        from gptmd_memory import CuratorError
+        from curatormd import CuratorError
         raise CuratorError("a retrospective review already exists for this record; revise it explicitly")
     return {"written": True, "record_id": record_id, "review_revision": review["review_revision"]}
 

@@ -1,10 +1,28 @@
 {
   "typeCheckingMode": "strict",
-  "include": ["plugins/gptmd-memory/scripts/curation_learning.py"],
+  "include": [
+    "plugins/curatormd/hooks/sde_capture.py",
+    "plugins/curatormd/scripts/curation_learning.py",
+    "plugins/curatormd/scripts/curatormd.py",
+    "plugins/curatormd/scripts/enable_repo.py",
+    "plugins/curatormd/scripts/install_hermes_integration.py",
+    "plugins/curatormd/scripts/mcp_server.py",
+    "plugins/curatormd/scripts/sde_vocabulary.py",
+    "plugins/curatormd/tests/test_curatormd.py",
+    "tools/vscode-curatormd-status/health-check.py"
+  ],
   "executionEnvironments": [
     {
-      "root": "plugins/gptmd-memory/scripts",
-      "extraPaths": ["plugins/gptmd-memory/scripts"]
+      "root": "plugins/curatormd/scripts",
+      "extraPaths": ["plugins/curatormd/scripts"]
+    },
+    {
+      "root": "plugins/curatormd/hooks",
+      "extraPaths": ["plugins/curatormd/scripts"]
+    },
+    {
+      "root": "plugins/curatormd/tests",
+      "extraPaths": ["plugins/curatormd/scripts"]
     }
   ]
 }

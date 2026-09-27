@@ -2,7 +2,7 @@
   "name": "curatormd-status",
   "displayName": "CuratorMD Status LED",
   "description": "Show Hermes, Codex, and CuratorMD health, open review notes, and approve candidates in the editor.",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "publisher": "curatormd",
   "license": "UNLICENSED",
   "engines": {

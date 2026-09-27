@@ -18,7 +18,7 @@ profiles are separate, so each new profile must register it independently.
 For a new repository, run:
 
 ```bash
-python3 /home/eaglesvn/dockerz/curatormd/plugins/gptmd-memory/scripts/enable_repo.py \
+python3 /home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/enable_repo.py \
   --project-root /absolute/path/to/new-repo \
   --profile newrepo-coding \
   --time 06:15

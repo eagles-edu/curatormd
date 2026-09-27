@@ -1,4 +1,38 @@
 {
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.extraPaths": ["${workspaceFolder}/plugins/curatormd/scripts"],
+  "python.analysis.typeCheckingMode": "strict",
   "curatormdStatus.profile": "curatormd-coding",
-  "curatormdStatus.pollSeconds": 25
+  "curatormdStatus.pollSeconds": 25,
+  "cSpell.words": [
+    "AKIA",
+    "appendable",
+    "CREAT",
+    "curatormd",
+    "CURATORMD",
+    "dockerfiles",
+    "dockerz",
+    "eaglesvn",
+    "fchmod",
+    "getpid",
+    "journaled",
+    "Minh",
+    "nuxt",
+    "pousr",
+    "pylint",
+    "Pylint",
+    "RDONLY",
+    "reprocessable",
+    "softmax",
+    "unreviewed",
+    "worktree",
+    "WRONLY"
+  ],
+  "python-envs.defaultEnvManager": "ms-python.python:venv"
 }

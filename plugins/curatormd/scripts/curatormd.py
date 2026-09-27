@@ -8,6 +8,7 @@ import contextlib
 import fcntl
 import hashlib
 import json
+import math
 import os
 import re
 import subprocess
@@ -16,7 +17,7 @@ import tempfile
 import stat
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any, Generator, cast
 
 
 STORE_NAMES = {
@@ -68,6 +69,14 @@ def clean(value: Any, field: str, limit: int = 20_000) -> str:
     return value.strip()
 
 
+def _object_dict(value: Any) -> dict[str, Any]:
+    """Narrow a value loaded from JSON to an object with string keys."""
+    if not isinstance(value, dict):
+        return {}
+    entries = cast(dict[object, Any], value)
+    return {key: item for key, item in entries.items() if isinstance(key, str)}
+
+
 def reject_secrets(*values: str | None) -> None:
     combined = "\n".join(value or "" for value in values)
     for pattern in SECRET_PATTERNS:
@@ -88,9 +97,11 @@ def redact_payload(value: Any, *, key: str = "") -> Any:
     if isinstance(value, str):
         return redact_text(value[:8_000])
     if isinstance(value, dict):
-        return {str(k)[:120]: redact_payload(v, key=str(k)) for k, v in list(value.items())[:100]}
+        entries = cast(dict[object, Any], value)
+        return {str(k)[:120]: redact_payload(v, key=str(k)) for k, v in list(entries.items())[:100]}
     if isinstance(value, list):
-        return [redact_payload(item, key=key) for item in value[:100]]
+        values = cast(list[Any], value)
+        return [redact_payload(item, key=key) for item in values[:100]]
     if isinstance(value, (int, float, bool)) or value is None:
         return value
     return redact_text(str(value)[:8_000])
@@ -108,15 +119,11 @@ def _run_git(root: Path, *args: str, timeout: int = 5) -> subprocess.CompletedPr
     return subprocess.run(["git", *args], cwd=root, text=True, capture_output=True, check=False, timeout=timeout)
 
 
-def resolve_project_root(project_root: str | os.PathLike[str] | None, *, allow_default: bool = False) -> Path:
+def resolve_project_root(project_root: str | os.PathLike[str] | None) -> Path:
     """Fail closed unless the path resolves to the Git worktree root with persistence/."""
     if project_root is None:
-        if not allow_default:
-            raise CuratorError("project_root is required and must be an absolute path")
-        configured = os.environ.get("GPTMD_PROJECT_ROOT")
-        candidate = Path(configured).expanduser() if configured else Path.cwd()
-    else:
-        candidate = Path(project_root).expanduser()
+        raise CuratorError("project_root is required and must be an absolute path")
+    candidate = Path(project_root).expanduser()
     if not candidate.is_absolute():
         raise CuratorError("project_root must be an absolute path")
     try:
@@ -175,19 +182,22 @@ def _approved_manifest_metadata(root: Path) -> dict[str, Any]:
     package = root / "package.json"
     if package.is_file():
         try:
-            data = json.loads(package.read_text(encoding="utf-8"))
-            if isinstance(data, dict):
-                result["package.json"]["name"] = data.get("name")
-                result["package.json"]["scripts"] = sorted(str(k) for k in (data.get("scripts") or {}) if isinstance(k, str))
-                result["package.json"]["dependencies"] = sorted(str(k) for k in (data.get("dependencies") or {}) if isinstance(k, str))
-                result["package.json"]["devDependencies"] = sorted(str(k) for k in (data.get("devDependencies") or {}) if isinstance(k, str))
+            package_data = _object_dict(json.loads(package.read_text(encoding="utf-8")))
+            metadata = _object_dict(result.get("package.json"))
+            metadata["name"] = package_data.get("name")
+            for field in ("scripts", "dependencies", "devDependencies"):
+                section = _object_dict(package_data.get(field))
+                metadata[field] = sorted(section)
+            result["package.json"] = metadata
         except (OSError, json.JSONDecodeError):
-            result["package.json"]["parse"] = "unavailable"
+            metadata = _object_dict(result.get("package.json"))
+            metadata["parse"] = "unavailable"
+            result["package.json"] = metadata
     return result
 
 
 def _persistence_health(root: Path) -> dict[str, Any]:
-    stores = []
+    stores: list[dict[str, Any]] = []
     for name, path in store_paths(root).items():
         text = path.read_text(encoding="utf-8") if path.exists() else ""
         stores.append({
@@ -249,7 +259,8 @@ def _load_state(root: Path, profile: str | None = None) -> dict[str, Any]:
         data = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise CuratorError(f"CuratorMD state is unreadable: {path}") from exc
-    if not isinstance(data, dict) or data.get("project_root") != str(root):
+    data = _object_dict(data)
+    if data.get("project_root") != str(root):
         raise CuratorError("CuratorMD state belongs to another project")
     return data
 
@@ -323,13 +334,14 @@ def _save_state(root: Path, state: dict[str, Any], profile: str | None = None) -
         merged = dict(latest)
         for key, value in state.items():
             if key == "processed" and isinstance(value, dict):
-                merged[key] = {**(latest.get(key) or {}), **value}
+                merged[key] = {**_object_dict(latest.get(key)), **_object_dict(value)}
             elif key == "curator_store_hashes" and isinstance(value, dict):
-                merged[key] = {**(latest.get(key) or {}), **value}
+                merged[key] = {**_object_dict(latest.get(key)), **_object_dict(value)}
             elif key == "observer" and isinstance(value, dict):
-                old = latest.get(key) or {}
-                old_seen, new_seen = str(old.get("last_seen_at") or ""), str(value.get("last_seen_at") or "")
-                merged[key] = dict(value if new_seen >= old_seen else old)
+                old = _object_dict(latest.get(key))
+                new = _object_dict(value)
+                old_seen, new_seen = str(old.get("last_seen_at") or ""), str(new.get("last_seen_at") or "")
+                merged[key] = dict(new if new_seen >= old_seen else old)
             else:
                 merged[key] = value
         merged["schema_version"] = SCHEMA_VERSION
@@ -353,8 +365,8 @@ def _cleanup_inbox(root: Path) -> int:
     removed = 0
     for path in _inbox_dir(root).glob("*.json"):
         try:
-            record = json.loads(path.read_text(encoding="utf-8"))
-            terminal = isinstance(record, dict) and (record.get("finalized") is True or record.get("suppressed") is True)
+            record = _object_dict(json.loads(path.read_text(encoding="utf-8")))
+            terminal = record.get("finalized") is True or record.get("suppressed") is True
             if terminal and datetime.fromtimestamp(path.stat().st_mtime, timezone.utc) < cutoff:
                 path.unlink()
                 removed += 1
@@ -371,7 +383,7 @@ def native_projection_record(project_root: str | os.PathLike[str], source_id: st
         raise ValueError("payload must be an object, array, or string")
     if isinstance(payload, dict):
         from curation_learning import safe_summary
-        payload = dict(payload)
+        payload = _object_dict(payload)
         payload["review_safe_summary"] = safe_summary(payload)
         # The summary is prepared first; raw conversation fields never enter the inbox.
         if "response" in payload:
@@ -399,6 +411,55 @@ def native_projection_record(project_root: str | os.PathLike[str], source_id: st
     _save_state(root, state, profile)
     _cleanup_inbox(root)
     return {"written": not duplicate, "duplicate": duplicate, "record_id": record_id, "file": _safe_relpath(path, root), "capture": "healthy"}
+
+
+def parse_defined_sde(
+    project_root: str | os.PathLike[str], sde: dict[str, Any], *, profile: str | None = None,
+) -> dict[str, Any]:
+    """Validate a Hermes-produced SDE definition and queue a readable review candidate."""
+    root = resolve_project_root(project_root)
+    required = ("title", "beginning", "middle", "end")
+    optional = ("rationale", "utility", "impact", "follow_up")
+    allowed = {*required, *optional, "archive"}
+    if set(sde) - allowed:
+        raise ValueError("sde contains unsupported fields")
+    parsed = {
+        key: redact_text(clean(sde.get(key), f"sde.{key}", 300 if key == "title" else 4_000))
+        for key in required
+    }
+    for key in optional:
+        value = sde.get(key)
+        if value is not None:
+            parsed[key] = redact_text(clean(value, f"sde.{key}", 2_000))
+    archive = sde.get("archive", "history")
+    if archive not in STORE_KINDS:
+        raise ValueError("sde.archive must be agents, sop, history, or lessons")
+    body = [
+        f"## {parsed['title']}",
+        f"**Beginning — trigger and context:** {parsed['beginning']}",
+        f"**Middle — decisions and work:** {parsed['middle']}",
+        f"**End — outcome and verification:** {parsed['end']}",
+    ]
+    for key, label in (("rationale", "Rationale"), ("utility", "Future utility"), ("impact", "Project impact"), ("follow_up", "Follow-up")):
+        if parsed.get(key):
+            body.append(f"**{label}:** {parsed[key]}")
+    content = "\n\n".join(body)
+    source_id = "defined-sde:" + sha256_text(canonical_json(parsed))[:32]
+    result = native_projection_record(
+        root,
+        source_id,
+        "codex:sde:parsed",
+        {
+            "candidate_type": "defined_sde",
+            "candidate_title": parsed["title"],
+            "candidate_archive": archive,
+            "review_safe_summary": {"text": content, "status": "generated", "generator": "defined-sde-schema"},
+            "parsed_sde": parsed,
+            "evidence_policy": "semantic_synthesis_secret_scan_raw_thread_not_stored",
+        },
+        profile=profile,
+    )
+    return {**result, "candidate_title": parsed["title"], "archive_suggestion": archive, "content": content}
 
 
 def _knowledge_conflict(root: Path, path: Path, expected_hash: str | None = None) -> bool:
@@ -433,6 +494,16 @@ def _atomic_text(path: Path, content: str) -> None:
             os.unlink(temporary)
 
 
+def _find_persisted_fingerprint(root: Path, fingerprint: str) -> str | None:
+    """Find an exact review fingerprint already present in canonical Markdown."""
+    if not re.fullmatch(r"[0-9a-f]{64}", fingerprint):
+        return None
+    for path in store_paths(root).values():
+        if path.is_file() and fingerprint in path.read_text(encoding="utf-8"):
+            return str(path.relative_to(root))
+    return None
+
+
 def _append_reviewed(
     root: Path,
     kind: str,
@@ -442,6 +513,7 @@ def _append_reviewed(
     impact: str,
     *,
     record_id: str | None = None,
+    fingerprint: str | None = None,
     expected_hash: str | None = None,
 ) -> dict[str, Any]:
     title, content = clean(title, "title", 300), clean(content, "content")
@@ -456,11 +528,28 @@ def _append_reviewed(
     raw = path.read_text(encoding="utf-8") if path.exists() else ""
     marker_prefix = f"<!-- curatormd:record_id={record_id};content_sha256="
     content_hash = sha256_text(canonical_json([kind, title, content, rationale, impact]))
-    for line in raw.splitlines():
-        if line.startswith(marker_prefix):
-            if line == f"{marker_prefix}{content_hash} -->":
-                return {"written": False, "duplicate": True, "kind": kind, "file": str(path.relative_to(root)), "title": title, "record_id": record_id}
-            raise CuratorError(f"record_id already exists with different content: {record_id}")
+    fingerprint_file = _find_persisted_fingerprint(root, fingerprint or "") if fingerprint else None
+    if fingerprint_file:
+        return {
+            "written": False, "duplicate": True, "already_present": True,
+            "warning": f"fingerprint already present in {fingerprint_file}",
+            "deletion_pending": True, "kind": kind, "file": fingerprint_file,
+            "title": title, "record_id": record_id,
+        }
+    for existing_path in store_paths(root).values():
+        if not existing_path.is_file():
+            continue
+        for line in existing_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith(marker_prefix):
+                if line == f"{marker_prefix}{content_hash} -->":
+                    existing_file = str(existing_path.relative_to(root))
+                    return {
+                        "written": False, "duplicate": True, "already_present": True,
+                        "warning": f"record already present in {existing_file}",
+                        "deletion_pending": True, "kind": kind, "file": existing_file,
+                        "title": title, "record_id": record_id,
+                    }
+                raise CuratorError(f"record_id already exists with different content: {record_id}")
     if _knowledge_conflict(root, path, expected_hash):
         raise CuratorError(f"knowledge document has unresolved or uncommitted edits: {path.relative_to(root)}")
     today = datetime.now().date().isoformat()
@@ -478,13 +567,15 @@ def _append_reviewed(
     else:
         entry = f"- {content}\n" + (f"  - **Why:** {rationale}\n" if rationale else "")
     entry = f"\n{entry.rstrip()}\n\n{marker_prefix}{content_hash} -->\n"
+    if fingerprint and re.fullmatch(r"[0-9a-f]{64}", fingerprint):
+        entry += f"<!-- curatormd:fingerprint={fingerprint} -->\n"
     updated = raw.rstrip() + "\n" + entry if raw.strip() else f"# {path.stem}\n{entry}"
     _atomic_text(path, updated)
     return {"written": True, "duplicate": False, "kind": kind, "file": str(path.relative_to(root)), "title": title, "record_id": record_id}
 
 
 @contextlib.contextmanager
-def curation_lock(root: Path) -> Iterator[dict[str, Any]]:
+def curation_lock(root: Path) -> Generator[dict[str, Any], None, None]:
     lock_path = root / ".curatormd" / "curation.lock"
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     os.chmod(lock_path.parent, 0o700)
@@ -507,7 +598,7 @@ def curation_lock(root: Path) -> Iterator[dict[str, Any]]:
 
 
 def _load_inbox(root: Path) -> list[dict[str, Any]]:
-    records = []
+    records: list[dict[str, Any]] = []
     inbox = root / ".curatormd" / "native-inbox"
     if not inbox.is_dir():
         return records
@@ -516,7 +607,8 @@ def _load_inbox(root: Path) -> list[dict[str, Any]]:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
-        if isinstance(data, dict) and data.get("project_root") == str(root): records.append(data)
+        record = _object_dict(data)
+        if record.get("project_root") == str(root): records.append(record)
     return records
 
 
@@ -526,13 +618,98 @@ def _record_path(root: Path, record_id: str) -> Path:
     return _inbox_dir(root) / f"{record_id}.json"
 
 
+def _has_text_leaf(value: Any) -> bool:
+    if isinstance(value, str):
+        return bool(value.strip()) and value.strip() not in {"[REDACTED]", "unknown"}
+    if isinstance(value, list):
+        return any(_has_text_leaf(item) for item in cast(list[Any], value))
+    if isinstance(value, dict):
+        return any(_has_text_leaf(item) for item in cast(dict[object, Any], value).values())
+    return False
+
+
+def _has_disposition_content(value: Any) -> bool:
+    """Check for actual event/candidate content, ignoring projection metadata."""
+    text_fields = {"title", "content", "beginning", "middle", "end", "summary", "text", "response", "message", "utility", "impact", "rationale", "follow_up"}
+    nested_fields = {"requested_candidate", "parsed_sde"}
+    cue_fields = {"before", "after", "matched_vocabulary", "cue_categories"}
+    if isinstance(value, dict):
+        value_object = _object_dict(value)
+        result = _object_dict(value_object.get("result"))
+        if result:
+            change_fields = (
+                "changed_project", "decision_made", "configuration_changed", "dependency_changed",
+                "interface_changed", "architecture_changed", "documentation_changed",
+                "security_changed", "data_changed",
+            )
+            if any(result.get(field) is True for field in change_fields):
+                return True
+            if result.get("status") in {"failure", "partial", "blocked"}:
+                return True
+        for key, item in value_object.items():
+            if key in text_fields and isinstance(item, str) and item.strip() not in {"", "[REDACTED]", "unknown"}:
+                return True
+            if key == "review_safe_summary" and _object_dict(item).get("text"):
+                return _has_text_leaf(_object_dict(item).get("text"))
+            if key in nested_fields and _has_disposition_content(item):
+                return True
+            if key in cue_fields and _has_text_leaf(item):
+                return True
+            if key == "result" and _has_disposition_content(item):
+                return True
+        return False
+    if isinstance(value, list):
+        return any(_has_disposition_content(item) for item in cast(list[Any], value))
+    if isinstance(value, str):
+        return bool(value.strip()) and value.strip() != "[REDACTED]"
+    return False
+
+
+def _candidate_is_reviewable(value: Any) -> bool:
+    candidate = _object_dict(value)
+    return all(isinstance(candidate.get(key), str) and bool(candidate[key].strip()) for key in ("title", "content"))
+
+
+def _record_candidate_is_reviewable(record: dict[str, Any]) -> bool:
+    if not _candidate_is_reviewable(record.get("candidate")):
+        return False
+    payload = _object_dict(record.get("payload"))
+    return payload.get("candidate_type") != "significant_development_event"
+
+
+def _scratch_incomplete_record(root: Path, record: dict[str, Any], reason: str) -> dict[str, Any]:
+    """Preserve an incomplete, redacted inbox item for manual disposition."""
+    record_id = clean(record.get("record_id"), "record_id", 180)
+    _record_path(root, record_id)  # Validate the identifier before using it in a path.
+    scratch_dir = root / ".curatormd" / "scratch"
+    scratch_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+    os.chmod(root / ".curatormd", 0o700)
+    os.chmod(scratch_dir, 0o700)
+    payload = redact_payload(_object_dict(record.get("payload")))
+    artifact = {
+        "schema_version": 1,
+        "record_id": record_id,
+        "source_id": redact_text(str(record.get("source_id") or ""))[:300],
+        "event_type": redact_text(str(record.get("event_type") or ""))[:120],
+        "captured_at": str(record.get("captured_at") or ""),
+        "status": "awaiting-manual-disposition",
+        "reason": redact_text(reason)[:500],
+        "payload": payload,
+        "candidate": redact_payload(record.get("candidate")) if isinstance(record.get("candidate"), dict) else None,
+        "manual_disposition": {"decision": None, "notes": ""},
+    }
+    path = scratch_dir / f"{record_id}.json"
+    created = _create_json_once(path, artifact)
+    return {"record_id": record_id, "file": str(path.relative_to(root)), "created": created}
+
+
 def _candidate_for(root: Path, record: dict[str, Any], profile: str | None) -> tuple[dict[str, Any] | None, dict[str, Any] | None, str]:
     from curation_learning import extract_features, meaningful, predict, snapshot
     has_meaning, reason = meaningful(record)
     if not has_meaning:
         return None, None, reason
-    payload = record.get("payload") if isinstance(record.get("payload"), dict) else {}
-    summary = payload.get("review_safe_summary") if isinstance(payload.get("review_safe_summary"), dict) else {}
+    payload = _object_dict(record.get("payload"))
+    summary = _object_dict(payload.get("review_safe_summary"))
     if not isinstance(summary.get("text"), str) or not summary.get("text", "").strip():
         from curation_learning import safe_summary
         summary = safe_summary(payload)
@@ -541,16 +718,20 @@ def _candidate_for(root: Path, record: dict[str, Any], profile: str | None) -> t
     text = summary.get("text")
     if not isinstance(text, str) or not text.strip():
         return None, None, "safe summary unavailable"
-    result = payload.get("result") if isinstance(payload.get("result"), dict) else {}
+    result = _object_dict(payload.get("result"))
+    parsed_sde = _object_dict(payload.get("parsed_sde"))
     proposed = predict(root, profile, record)
     probability = float(proposed.get("disposition_probability", 0.5))
-    priority_probs = proposed.get("priority_probabilities", {})
+    priority_probs = _object_dict(proposed.get("priority_probabilities"))
     if proposed.get("priority_model_status") == "fit":
         priority = int(max(range(6), key=lambda item: float(priority_probs.get(str(item), 0.0))))
     else:
         priority = 1
-    archive_probs = proposed.get("archive_probabilities", {})
-    if proposed.get("archive_model_status") == "fit":
+    archive_probs = _object_dict(proposed.get("archive_probabilities"))
+    requested_archive = payload.get("candidate_archive")
+    if isinstance(requested_archive, str) and requested_archive in STORE_KINDS:
+        archive = requested_archive
+    elif proposed.get("archive_model_status") == "fit":
         archive = max(("agents", "sop", "history", "lessons"), key=lambda item: float(archive_probs.get(item, 0.0)))
     else:
         archive = "history"
@@ -561,13 +742,27 @@ def _candidate_for(root: Path, record: dict[str, Any], profile: str | None) -> t
     title_hint = payload.get("candidate_title")
     if not isinstance(title_hint, str) or not title_hint.strip():
         title_hint = text
-    title = re.sub(r"\s+", " ", title_hint).strip().rstrip(".!?")[:120] or "CuratorMD event"
+    title = re.sub(r"\s+", " ", title_hint).strip().rstrip(".!?")
+    # SDE identifiers belong in metadata/content, not at the start of the human title.
+    title = re.sub(r"^SDE-[A-F0-9]{12}:\s*", "", title, flags=re.IGNORECASE)
+    if len(title) > 300:
+        title = title[:297].rsplit(" ", 1)[0].rstrip(".,;:-") + "..."
+    title = title or "CuratorMD event"
+    if payload.get("candidate_type") == "defined_sde" and parsed_sde:
+        beginning = str(parsed_sde.get("beginning") or "the situation described in this event")[:500]
+        middle = str(parsed_sde.get("middle") or "the decisions and work described in this event")[:1200]
+        end = str(parsed_sde.get("end") or "the outcome described in this event")[:1500]
+        utility = str(parsed_sde.get("utility") or f"Helps future work address {beginning} by preserving the decisions and implementation path: {middle}")
+        impact = str(parsed_sde.get("impact") or f"Observed outcome and verification: {end}")
+    else:
+        utility = str(payload.get("candidate_utility") or "The source event does not specify a concrete future-use benefit.")
+        impact = str(payload.get("candidate_impact") or "The source event does not state an evidenced project-quality effect.")
     candidate = {
         "kind": archive,
         "title": title,
         "content": text.strip(),
-        "utility": "Preserves the bounded result for future project work.",
-        "impact": "Human review required; no archive change occurs while pending.",
+        "utility": utility,
+        "impact": impact,
     }
     proposal = {
         "disposition": disposition,
@@ -592,14 +787,14 @@ def _candidate_for(root: Path, record: dict[str, Any], profile: str | None) -> t
 
 def _observation_for(record: dict[str, Any], review: dict[str, Any], candidate: dict[str, Any], revision: int) -> dict[str, Any] | None:
     from curation_learning import extract_features
-    selection = review.get("selection", {})
-    disposition = selection.get("disposition", {}).get("selected") if isinstance(selection.get("disposition"), dict) else None
+    selection = _object_dict(review.get("selection"))
+    disposition = _object_dict(selection.get("disposition")).get("selected")
     if disposition not in {"approved", "do-not-record"}:
         return None
-    priority = selection.get("priority", {}).get("selected") if isinstance(selection.get("priority"), dict) else None
-    archive = selection.get("archive", {}).get("selected") if isinstance(selection.get("archive"), dict) else None
-    human_edits = review.get("human_edits") if isinstance(review.get("human_edits"), dict) else {}
-    proposal = record.get("proposal") if isinstance(record.get("proposal"), dict) else {}
+    priority = _object_dict(selection.get("priority")).get("selected")
+    archive = _object_dict(selection.get("archive")).get("selected")
+    human_edits = _object_dict(review.get("human_edits"))
+    proposal = _object_dict(record.get("proposal"))
     archive_final = archive if disposition == "approved" else None
     ai_priority = proposal.get("priority")
     ai_archive = proposal.get("archive")
@@ -633,7 +828,7 @@ def _observation_for(record: dict[str, Any], review: dict[str, Any], candidate: 
 
 
 def _apply_transaction(root: Path, profile: str | None, state: dict[str, Any], transaction: dict[str, Any]) -> dict[str, Any]:
-    from curation_learning import _json_read, _write, learning_root
+    from curation_learning import write_json, learning_root
     record_id = transaction["record_id"]
     candidate = transaction["candidate"]
     disposition = transaction["disposition"]
@@ -643,7 +838,9 @@ def _apply_transaction(root: Path, profile: str | None, state: dict[str, Any], t
         archive_result = _append_reviewed(
             root, transaction["archive"], candidate["title"], candidate["content"],
             candidate.get("utility", ""), candidate.get("impact", ""),
-            record_id=record_id, expected_hash=store_hashes.get(transaction["archive"]),
+            record_id=record_id,
+            fingerprint=transaction.get("fingerprint"),
+            expected_hash=transaction.get("target_hash") or store_hashes.get(transaction["archive"]),
         )
         archive_path = store_paths(root)[transaction["archive"]]
         store_hashes[transaction["archive"]] = sha256_text(archive_path.read_text(encoding="utf-8"))
@@ -670,19 +867,22 @@ def _apply_transaction(root: Path, profile: str | None, state: dict[str, Any], t
         current["finalized_at"] = transaction["review"].get("finalized_at")
         current["review_revision"] = transaction["review_revision"]
         current["finalization"] = {"archive": archive_result, "learning": learning_result}
+        if archive_result and archive_result.get("duplicate"):
+            current["deletion_pending"] = True
+            current["duplicate_warning"] = archive_result.get("warning", "already present")
         _atomic_json(record_path, current)
     state.setdefault("processed", {})[record_id] = str(transaction["fingerprint"])
     state["curator_store_hashes"] = store_hashes
     _save_state(root, state, profile)
     transaction["status"] = "committed"
     transaction["committed_at"] = iso_now()
-    from curation_learning import _write, learning_root
-    _write(learning_root(root, profile) / "transactions" / f"{record_id}-r{transaction['review_revision']}.json", transaction)
+    from curation_learning import write_json, learning_root
+    write_json(learning_root(root, profile) / "transactions" / f"{record_id}-r{transaction['review_revision']}.json", transaction)
     return {"record_id": record_id, "disposition": disposition, "archive": archive_result, "learning": learning_result, "duplicate": bool(archive_result and archive_result.get("duplicate"))}
 
 
 def _finalize_review(root: Path, profile: str | None, state: dict[str, Any], record: dict[str, Any]) -> dict[str, Any]:
-    from curation_learning import _json_read, learning_root
+    from curation_learning import read_json, learning_root
     review = record.get("review") if isinstance(record.get("review"), dict) else None
     candidate = record.get("candidate") if isinstance(record.get("candidate"), dict) else None
     if not candidate:
@@ -691,42 +891,100 @@ def _finalize_review(root: Path, profile: str | None, state: dict[str, Any], rec
         # Compatibility for explicitly reviewed schema-v2 candidates.
         review = {"reviewed": True, "selection": {"disposition": {"selected": "approved"}, "priority": {"selected": None}, "archive": {"selected": candidate.get("kind")}}, "finalized_at": iso_now(), "review_source": "legacy-human"}
         record["review"] = review
-    selection = review.get("selection") if isinstance(review.get("selection"), dict) else {}
-    disposition = selection.get("disposition", {}).get("selected") if isinstance(selection.get("disposition"), dict) else None
+    selection = _object_dict(review.get("selection"))
+    disposition = _object_dict(selection.get("disposition")).get("selected")
     if not review.get("reviewed") or disposition not in {"approved", "do-not-record"}:
         raise CuratorError("review is incomplete")
-    archive = selection.get("archive", {}).get("selected") if isinstance(selection.get("archive"), dict) else None
-    if disposition == "approved" and archive not in STORE_KINDS:
+    archive = _object_dict(selection.get("archive")).get("selected")
+    if disposition == "approved" and (not isinstance(archive, str) or archive not in STORE_KINDS):
         raise CuratorError("approved review requires a valid archive selection")
     revision = int(record.get("review_revision", 1))
     observation = _observation_for(record, review, candidate, revision) if review.get("review_source", "human") == "human" else None
     learning_dir = learning_root(root, profile)
     journal = learning_dir / "transactions" / f"{record['record_id']}-r{revision}.json"
-    prior = _json_read(journal, None)
-    if isinstance(prior, dict):
+    prior = _object_dict(read_json(journal, None))
+    if prior.get("status") == "prepared":
+        prior_selection = _object_dict(_object_dict(prior.get("review")).get("selection"))
+        current_selection = _object_dict(review.get("selection"))
+        same_decision = (
+            prior.get("disposition") == disposition
+            and prior.get("archive") == archive
+            and prior.get("candidate") == candidate
+            and prior_selection == current_selection
+        )
+        if not same_decision:
+            prior["status"] = "superseded"
+            prior["superseded_at"] = iso_now()
+            from curation_learning import write_json
+            write_json(journal, prior)
+            revision += 1
+            record["review_revision"] = revision
+            observation = _observation_for(record, review, candidate, revision) if review.get("review_source", "human") == "human" else None
+            journal = learning_dir / "transactions" / f"{record['record_id']}-r{revision}.json"
+            prior = None
+    if prior:
         if prior.get("status") == "committed":
             return {"record_id": record["record_id"], "disposition": disposition, "duplicate": True}
         transaction = prior
     else:
+        target_hash = None
+        if disposition == "approved" and review.get("review_source") == "human":
+            if not isinstance(archive, str):
+                raise CuratorError("approved review requires a valid archive selection")
+            target_path = store_paths(root)[archive]
+            target_hash = sha256_text(target_path.read_text(encoding="utf-8") if target_path.exists() else "")
         transaction = {
             "schema_version": 1, "status": "prepared", "project_root": str(root),
             "record_id": record["record_id"], "fingerprint": record.get("fingerprint", ""),
             "review_revision": revision, "review": review, "candidate": candidate,
-            "disposition": disposition, "archive": archive, "observation": observation,
+            "disposition": disposition, "archive": archive, "target_hash": target_hash,
+            "observation": observation,
             "prepared_at": iso_now(),
         }
-        from curation_learning import _write
-        _write(journal, transaction)
+        from curation_learning import write_json
+        write_json(journal, transaction)
     return _apply_transaction(root, profile, state, transaction)
 
 
+def recover_transaction(
+    project_root: str | os.PathLike[str], record_id: str, *,
+    accept_current_target: bool = False, profile: str | None = None,
+) -> dict[str, Any]:
+    """Resume one prepared review; legacy journals need explicit baseline acceptance."""
+    from curation_learning import read_json, write_json, learning_root
+    root = resolve_project_root(project_root)
+    with curation_lock(root):
+        directory = learning_root(root, profile) / "transactions"
+        matches = sorted(directory.glob(f"{clean(record_id, 'record_id', 180)}-r*.json"))
+        prepared = [item for item in matches if read_json(item, {}).get("status") == "prepared"]
+        if not prepared:
+            return {"record_id": record_id, "recovered": False, "reason": "no prepared transaction"}
+        path = prepared[-1]
+        transaction = read_json(path, {})
+        if not transaction.get("target_hash"):
+            if not accept_current_target:
+                raise CuratorError("legacy transaction needs manual baseline approval; rerun with --accept-current-target after reviewing the target diff")
+            archive = transaction.get("archive")
+            if archive not in STORE_KINDS:
+                raise CuratorError("prepared transaction has no valid archive")
+            target = store_paths(root)[archive]
+            current = target.read_text(encoding="utf-8") if target.exists() else ""
+            if any(marker in current for marker in ("<<<<<<<", "=======", ">>>>>>>")):
+                raise CuratorError("manual recovery refused a target with merge-conflict markers")
+            transaction["target_hash"] = sha256_text(current)
+            transaction["manual_recovery_baseline_at"] = iso_now()
+            write_json(path, transaction)
+        state = _load_state(root, profile)
+        return {**_apply_transaction(root, profile, state, transaction), "recovered": True}
+
+
 def _recover_transactions(root: Path, profile: str | None, state: dict[str, Any]) -> list[dict[str, Any]]:
-    from curation_learning import _json_read, learning_root
-    pending = []
+    from curation_learning import read_json, learning_root
+    pending: list[dict[str, Any]] = []
     directory = learning_root(root, profile) / "transactions"
     for path in sorted(directory.glob("*.json")) if directory.exists() else []:
-        transaction = _json_read(path, None)
-        if not isinstance(transaction, dict) or transaction.get("project_root") != str(root) or transaction.get("status") == "committed":
+        transaction = read_json(path, None)
+        if not transaction or transaction.get("project_root") != str(root) or transaction.get("status") in {"committed", "superseded", "cancelled"}:
             continue
         try:
             pending.append(_apply_transaction(root, profile, state, transaction))
@@ -743,10 +1001,8 @@ def review_candidate(
     root = resolve_project_root(project_root)
     if disposition not in {"approved", "do-not-record"}:
         raise ValueError("disposition must be approved or do-not-record")
-    if isinstance(priority, bool) or not isinstance(priority, int) or priority not in range(6):
+    if isinstance(priority, bool) or priority not in range(6):
         raise ValueError("priority must be an integer from 0 through 5")
-    if edits is not None and not isinstance(edits, dict):
-        raise ValueError("edits must be an object")
     if edits and set(edits) - {"title", "content", "utility", "impact"}:
         raise ValueError("edits may contain only title, content, utility, and impact")
     if priority == 5 and not confirm_priority_5:
@@ -758,20 +1014,20 @@ def review_candidate(
     with curation_lock(root):
         path = _record_path(root, clean(record_id, "record_id", 180))
         if not path.is_file(): raise CuratorError("native inbox record was not found")
-        record = json.loads(path.read_text(encoding="utf-8"))
+        record = _object_dict(json.loads(path.read_text(encoding="utf-8")))
         if record.get("finalized") is True:
             edits = edits or {}
-            candidate = record.get("candidate")
-            if not isinstance(candidate, dict): raise CuratorError("record has no generated candidate")
+            candidate = _object_dict(record.get("candidate"))
+            if not candidate: raise CuratorError("record has no generated candidate")
             if any(value is not None and value != candidate.get(key) for key, value in edits.items()):
                 raise CuratorError("review revisions may correct labels only; candidate text is immutable after finalization")
-            selection = (record.get("review") or {}).get("selection", {})
-            previous_disposition = (selection.get("disposition") or {}).get("selected")
-            previous_priority = (selection.get("priority") or {}).get("selected")
-            previous_archive = (selection.get("archive") or {}).get("selected")
+            previous_review = _object_dict(record.get("review"))
+            selection = _object_dict(previous_review.get("selection"))
+            previous_disposition = _object_dict(selection.get("disposition")).get("selected")
+            previous_priority = _object_dict(selection.get("priority")).get("selected")
+            previous_archive = _object_dict(selection.get("archive")).get("selected")
             if (previous_disposition, previous_priority, previous_archive) == (disposition, priority, archive):
                 return {"record_id": record_id, "disposition": disposition, "reviewed": True, "duplicate": True, "review_revision": record.get("review_revision", 1)}
-            previous_review = dict(record.get("review") or {})
             previous_observation_id = f"{record_id}-r{int(record.get('review_revision', 1))}"
             revision = int(record.get("review_revision", 1)) + 1
             review = dict(previous_review)
@@ -790,9 +1046,9 @@ def review_candidate(
             state = _load_state(root, profile)
             result = _finalize_review(root, profile, state, record)
             return {**result, "reviewed": True, "review_revision": revision, "supersedes_observation_id": previous_observation_id}
-        candidate = record.get("candidate")
-        if not isinstance(candidate, dict): raise CuratorError("record has no generated candidate")
-        review = record.get("review") if isinstance(record.get("review"), dict) else {}
+        candidate = _object_dict(record.get("candidate"))
+        if not candidate: raise CuratorError("record has no generated candidate")
+        review = _object_dict(record.get("review"))
         edits = edits or {}
         final_candidate = dict(candidate)
         human_edits = {}
@@ -835,44 +1091,89 @@ def curate(project_root: str | os.PathLike[str], *, schedule_slot: str = "06:00 
         _save_state(root, state, profile)
         removed = _cleanup_inbox(root)
         processed = state.setdefault("processed", {})
-        written, rejected, ambiguous, suppressed, duplicates, conflicts, recovered = [], [], [], [], [], [], []
+        written: list[dict[str, Any]] = []
+        rejected: list[dict[str, Any]] = []
+        ambiguous: list[dict[str, Any]] = []
+        suppressed: list[dict[str, Any]] = []
+        duplicates: list[str | dict[str, Any]] = []
+        conflicts: list[str] = []
+        recovered: list[dict[str, Any]] = []
+        scratch: list[dict[str, Any]] = []
+        empty_removed: list[str] = []
         recovered.extend(_recover_transactions(root, profile, state))
         records = _load_inbox(root)
         for record in records:
             record_id = str(record.get("record_id") or "")
             fingerprint = str(record.get("fingerprint") or "")
             if not record_id or not fingerprint: continue
+            if record.get("suppressed") is True:
+                suppressed.append({"record_id": record_id, "reason": record.get("suppression_reason", "previously suppressed")})
+                continue
             if record.get("finalized") is True:
                 duplicates.append(record_id)
+                continue
+            existing_candidate = record.get("candidate")
+            if isinstance(existing_candidate, dict) and not _record_candidate_is_reviewable(record):
+                payload = _object_dict(record.get("payload"))
+                if not _has_disposition_content(payload) and not _has_disposition_content(existing_candidate):
+                    _record_path(root, record_id).unlink(missing_ok=True)
+                    empty_removed.append(record_id)
+                else:
+                    reason = "cue-only SDE; submit a full-thread synthesis with sde_parse" if payload.get("candidate_type") == "significant_development_event" else "candidate is missing a non-empty title or content"
+                    scratch_result = _scratch_incomplete_record(root, record, reason)
+                    scratch.append({**scratch_result, "reason": reason})
+                    ambiguous.append({"record_id": record_id, "reason": reason, "scratch_file": scratch_result["file"]})
                 continue
             if record.get("reviewed") is not True or not isinstance(record.get("candidate"), dict):
                 if not isinstance(record.get("candidate"), dict):
                     candidate, generated, reason = _candidate_for(root, record, profile)
                     if candidate is None:
-                        record["suppressed"] = reason == "routine lifecycle event"
-                        if record["suppressed"]: suppressed.append({"record_id": record_id, "reason": reason})
-                        else: ambiguous.append({"record_id": record_id, "reason": reason})
-                        if record["suppressed"]: _atomic_json(_record_path(root, record_id), record)
+                        payload = _object_dict(record.get("payload"))
+                        if not _has_disposition_content(payload):
+                            _record_path(root, record_id).unlink(missing_ok=True)
+                            empty_removed.append(record_id)
+                        elif reason == "routine lifecycle event":
+                            record["suppressed"] = True
+                            record["suppression_reason"] = reason
+                            suppressed.append({"record_id": record_id, "reason": reason})
+                            _atomic_json(_record_path(root, record_id), record)
+                        else:
+                            scratch_result = _scratch_incomplete_record(root, record, reason)
+                            scratch.append({**scratch_result, "reason": reason})
+                            ambiguous.append({"record_id": record_id, "reason": reason, "scratch_file": scratch_result["file"]})
                         continue
+                    if generated is None:
+                        raise CuratorError("candidate generation returned no review proposal")
                     record["candidate"], record["proposal"], record["review"], record["proposal_timestamp"] = candidate, generated["proposal"], generated["review"], iso_now()
                     record["prediction_snapshot"] = generated["prediction_snapshot"]
                     _atomic_json(_record_path(root, record_id), record)
-                ambiguous.append({"record_id": record_id, "candidate": record.get("candidate", {}).get("title"), "reason": "awaiting human review"})
+                ambiguous.append({"record_id": record_id, "candidate": _object_dict(record.get("candidate")).get("title"), "reason": "awaiting human review"})
                 continue
             try:
                 result = _finalize_review(root, profile, state, record)
             except (CuratorError, ValueError, OSError) as exc:
                 conflicts.append(f"{record_id}: {exc}")
                 continue
-            if result.get("disposition") == "approved": written.append(result)
+            archive_result = _object_dict(result.get("archive"))
+            if archive_result.get("already_present"):
+                duplicates.append({
+                    "record_id": record_id,
+                    "warning": archive_result.get("warning", "already present"),
+                    "deletion_pending": True,
+                })
+            elif result.get("disposition") == "approved": written.append(result)
             else: rejected.append(result)
             processed[record_id] = fingerprint
-        inbox_cursor = [str(item.get("cursor")) for item in records if item.get("cursor")]
+        inbox_cursor: list[str] = [
+            cursor for item in records
+            if isinstance((cursor := item.get("cursor")), str)
+        ]
         state["processed"] = dict(list(processed.items())[-10_000:])
         state["cursor"] = max(inbox_cursor, default=state.get("cursor"))
         state["last_run_finished_at"] = iso_now()
         state["lock"] = None
-        state["capture_status"] = "healthy" if (state.get("observer") or {}).get("last_seen_at") else "degraded"
+        observer = _object_dict(state.get("observer"))
+        state["capture_status"] = "healthy" if observer.get("last_seen_at") else "degraded"
         _save_state(root, state, profile)
         try:
             learning = recompute(root, profile)
@@ -885,7 +1186,8 @@ def curate(project_root: str | os.PathLike[str], *, schedule_slot: str = "06:00 
         return {
             "project_root": str(root), "schedule_slot": schedule_slot,
             "capture": state["capture_status"], "written": written, "rejected": rejected,
-            "ambiguous": ambiguous, "suppressed": suppressed, "duplicates": duplicates,
+            "ambiguous": ambiguous, "scratch": scratch, "empty_removed": empty_removed,
+            "suppressed": suppressed, "duplicates": duplicates,
             "conflicts": conflicts, "recovered": recovered, "expired_inbox_records": removed,
             "learning": learning, "retention": retention, "state": str(_state_path(root, profile)),
             "lock": "released",
@@ -897,9 +1199,13 @@ def search(root: Path, query: str, scope: str = "all", limit: int = 40) -> dict[
     terms = [term.lower() for term in re.findall(r"\S+", query)]
     if not terms: raise ValueError("query must contain at least one search term")
     paths = store_paths(root)
-    selected = paths if scope == "all" else {scope: paths.get(scope)}
-    if scope != "all" and selected[scope] is None: raise ValueError(f"unknown scope: {scope}")
-    matches = []
+    if scope == "all":
+        selected = paths
+    elif scope in paths:
+        selected = {scope: paths[scope]}
+    else:
+        raise ValueError(f"unknown scope: {scope}")
+    matches: list[dict[str, Any]] = []
     for name, path in selected.items():
         if not path.exists(): continue
         for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
@@ -912,17 +1218,22 @@ def search(root: Path, query: str, scope: str = "all", limit: int = 40) -> dict[
 def status(root: Path, profile: str | None = None) -> dict[str, Any]:
     from curation_learning import status as learning_status_impl
     state = _load_state(root, profile)
-    observer = state.get("observer") or {}
+    observer = _object_dict(state.get("observer"))
     capture_status = "healthy" if observer.get("status") == "healthy" else state.get("capture_status", "degraded")
     records = _load_inbox(root)
-    pending = sum(record.get("finalized") is not True and record.get("suppressed") is not True for record in records)
+    pending = sum(
+        _record_candidate_is_reviewable(record)
+        and record.get("finalized") is not True
+        and record.get("suppressed") is not True
+        for record in records
+    )
     return {"root": str(root), "stores": _persistence_health(root)["stores"], "git": _git_state(root), "inbox_records": len(records), "pending_reviews": pending, "capture_status": capture_status, "learning": learning_status_impl(root, profile), "state": str(_state_path(root, profile)), "schedule_slot": state.get("schedule_slot")}
 
 
 def append_entry(root: Path, kind: str, title: str, content: str, rationale: str | None = None, impact: str | None = None, *, profile: str | None = None) -> dict[str, Any]:
     with curation_lock(root):
         state = _load_state(root, profile)
-        result = _append_reviewed(root, kind, title, content, rationale or "", impact or "", expected_hash=(state.get("curator_store_hashes") or {}).get(kind))
+        result = _append_reviewed(root, kind, title, content, rationale or "", impact or "", expected_hash=_object_dict(state.get("curator_store_hashes")).get(kind))
         if result.get("written"):
             path = store_paths(root)[kind]
             state.setdefault("curator_store_hashes", {})[kind] = sha256_text(path.read_text(encoding="utf-8"))
@@ -936,8 +1247,13 @@ def learning_status(root: Path, profile: str | None = None) -> dict[str, Any]:
 
 
 def _safe_review_payload(payload: dict[str, Any]) -> dict[str, Any] | None:
-    if payload.get("candidate_type") != "significant_development_event":
+    if payload.get("candidate_type") not in {"significant_development_event", "defined_sde"}:
         return None
+    if payload.get("candidate_type") == "defined_sde":
+        parsed = payload.get("parsed_sde")
+        if not isinstance(parsed, dict):
+            return None
+        return {"candidate_type": "defined_sde", "parsed_sde": parsed}
     from sde_vocabulary import safe_sde_cues
     sde_id = payload.get("sde_id")
     if not isinstance(sde_id, str) or not re.fullmatch(r"SDE-[A-F0-9]{12}", sde_id):
@@ -951,20 +1267,25 @@ def _safe_review_payload(payload: dict[str, Any]) -> dict[str, Any] | None:
         "sde_id": sde_id,
         "before": before,
         "after": after,
+        "before_summary": redact_text(str(payload.get("before_summary"))[:360]) if isinstance(payload.get("before_summary"), str) else None,
+        "after_summary": redact_text(str(payload.get("after_summary"))[:360]) if isinstance(payload.get("after_summary"), str) else None,
         "cue_categories": categories,
         "matched_vocabulary": terms,
+        "parsed_sde": payload.get("parsed_sde") if isinstance(payload.get("parsed_sde"), dict) else None,
     }
 
 
 def pending_reviews(root: Path, profile: str | None = None, *, limit: int = 30) -> dict[str, Any]:
-    if isinstance(limit, bool) or not isinstance(limit, int) or limit < 1 or limit > 100:
+    if isinstance(limit, bool) or limit < 1 or limit > 100:
         raise ValueError("limit must be an integer from 1 through 100")
-    items = []
+    items: list[dict[str, Any]] = []
     for record in _load_inbox(root):
         if record.get("finalized") is True or record.get("suppressed") is True:
             continue
-        payload = record.get("payload") if isinstance(record.get("payload"), dict) else {}
-        candidate = record.get("candidate") if isinstance(record.get("candidate"), dict) else None
+        payload = _object_dict(record.get("payload"))
+        candidate = record.get("candidate") if _record_candidate_is_reviewable(record) else None
+        if candidate is None:
+            continue
         items.append({
             "record_id": record.get("record_id"),
             "event_type": record.get("event_type"),
@@ -1001,7 +1322,7 @@ def qa_outcome_record(
     finalize_window: bool = False,
     profile: str | None = None,
 ) -> dict[str, Any]:
-    from curation_learning import _json_read, learning_root, record_qa_outcome
+    from curation_learning import read_json, learning_root, record_qa_outcome
     if window_days not in {30, 60, 90, 180}:
         raise ValueError("window_days must be one of 30, 60, 90, or 180")
     outcome_type = clean(outcome_type, "outcome_type", 80)
@@ -1022,7 +1343,7 @@ def qa_outcome_record(
     matches = sorted(directory.glob(f"{record_id}-r*.json")) if directory.exists() else []
     if not matches: raise CuratorError("learning observation was not found")
     observation_path = matches[-1]
-    observation = _json_read(observation_path, {})
+    observation = _object_dict(read_json(observation_path, {}))
     occurred_at = iso_now()
     outcome_key = sha256_text(canonical_json([record_id, window_days, outcome_type, value, evidence]))[:24]
     outcome = {
@@ -1035,11 +1356,12 @@ def qa_outcome_record(
     if finalize_window:
         from curation_learning import update_observation
         def finalize_qa(current: dict[str, Any]) -> None:
-            finalized = set(current.get("qa_finalized_windows", []))
+            finalized_values = current.get("qa_finalized_windows", [])
+            finalized = set(cast(list[int], finalized_values))
             finalized.add(window_days)
             current["qa_finalized_windows"] = sorted(finalized)
             current["qa_windows_finalized"] = all(item in finalized for item in (30, 60, 90, 180))
-        observation = update_observation(root, profile, observation_path, finalize_qa)
+        update_observation(root, profile, observation_path, finalize_qa)
     return {**result, "window_finalized": finalize_window, "finalized_windows": observation.get("qa_finalized_windows", [])}
 
 
@@ -1053,10 +1375,10 @@ def retrospective_review(
     should_have_recorded: str | None = None,
     profile: str | None = None,
 ) -> dict[str, Any]:
-    from curation_learning import _json_read, learning_root, record_retrospective
+    from curation_learning import read_json, learning_root, record_retrospective
     if still_correct not in {"yes", "no", "uncertain"}:
         raise ValueError("still_correct must be yes, no, or uncertain")
-    if isinstance(usefulness, bool) or not isinstance(usefulness, int) or usefulness not in range(5):
+    if isinstance(usefulness, bool) or usefulness not in range(5):
         raise ValueError("usefulness must be an integer from 0 through 4")
     if germane not in {"yes", "superseded", "obsolete", "uncertain"}:
         raise ValueError("germane must be yes, superseded, obsolete, or uncertain")
@@ -1066,10 +1388,9 @@ def retrospective_review(
     matches = sorted(directory.glob(f"{record_id}-r*.json")) if directory.exists() else []
     if not matches: raise CuratorError("learning observation was not found")
     observation_path = matches[-1]
-    observation = _json_read(observation_path, {})
     existing_reviews = sorted((learning_root(root, profile) / "retrospective-audits").glob(f"{record_id}-r*.json"))
     if existing_reviews:
-        previous = _json_read(existing_reviews[-1], {})
+        previous = _object_dict(read_json(existing_reviews[-1], {}))
         same = (previous.get("still_correct"), previous.get("usefulness"), previous.get("germane"), previous.get("should_have_recorded")) == (still_correct, usefulness, germane, should_have_recorded)
         if same:
             return {"written": False, "duplicate": True, "record_id": record_id, "review_revision": previous.get("review_revision")}
@@ -1077,7 +1398,9 @@ def retrospective_review(
     review = {"schema_version": 1, "record_id": record_id, "review_revision": revision, "reviewed_at": iso_now(), "still_correct": still_correct, "usefulness": usefulness, "germane": germane, "should_have_recorded": should_have_recorded}
     result = record_retrospective(root, profile, record_id, review)
     from curation_learning import update_observation
-    observation = update_observation(root, profile, observation_path, lambda current: current.update({"retrospective_finalized": True}))
+    def finalize_retrospective(current: dict[str, Any]) -> None:
+        current["retrospective_finalized"] = True
+    update_observation(root, profile, observation_path, finalize_retrospective)
     return result
 
 
@@ -1088,30 +1411,34 @@ def self_improvement(root: Path, failure: str, cause: str, fix: str, prevention:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project-root", help="Absolute Git worktree root")
+    parser.add_argument("--project-root", required=True, help="Absolute Git worktree root")
     parser.add_argument("--profile", default=None)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("status"); sub.add_parser("snapshot")
     search_parser = sub.add_parser("search"); search_parser.add_argument("query"); search_parser.add_argument("--scope", default="all", choices=["all", *STORE_NAMES])
     record_parser = sub.add_parser("record"); record_parser.add_argument("kind", choices=STORE_NAMES); record_parser.add_argument("title"); record_parser.add_argument("content"); record_parser.add_argument("--rationale"); record_parser.add_argument("--impact")
     observe_parser = sub.add_parser("observe"); observe_parser.add_argument("source_id"); observe_parser.add_argument("event_type"); observe_parser.add_argument("payload_json"); observe_parser.add_argument("--cursor")
+    sde_parser = sub.add_parser("sde-parse"); sde_parser.add_argument("sde_json", help="JSON object with title, beginning, middle, end, and optional rationale, utility, impact, follow_up, archive")
     curate_parser = sub.add_parser("curate"); curate_parser.add_argument("--schedule-slot", default="06:00 Asia/Ho_Chi_Minh")
     review_parser = sub.add_parser("review"); review_parser.add_argument("record_id"); review_parser.add_argument("disposition", choices=["approved", "do-not-record"]); review_parser.add_argument("--priority", required=True, type=int, choices=range(6)); review_parser.add_argument("--archive", choices=STORE_NAMES); review_parser.add_argument("--confirm-priority-5", action="store_true"); review_parser.add_argument("--edits-json")
-    learning_status_parser = sub.add_parser("learning-status")
+    recover_parser = sub.add_parser("recover"); recover_parser.add_argument("record_id"); recover_parser.add_argument("--accept-current-target", action="store_true", help="For legacy prepared transactions only: approve the current target hash after manually reviewing its diff")
+    sub.add_parser("learning-status")
     pending_parser = sub.add_parser("pending-reviews"); pending_parser.add_argument("--limit", type=int, default=30)
     learning_recompute_parser = sub.add_parser("learning-recompute"); learning_recompute_parser.add_argument("--force", action="store_true")
     sub.add_parser("learning-report")
     improve_parser = sub.add_parser("improve"); improve_parser.add_argument("failure"); improve_parser.add_argument("cause"); improve_parser.add_argument("fix"); improve_parser.add_argument("prevention")
     args = parser.parse_args()
     try:
-        root = resolve_project_root(args.project_root, allow_default=True)
+        root = resolve_project_root(args.project_root)
         if args.command == "status": result = status(root, args.profile)
         elif args.command == "snapshot": result = environment_snapshot(str(root))
         elif args.command == "search": result = search(root, args.query, args.scope)
         elif args.command == "record": result = append_entry(root, args.kind, args.title, args.content, args.rationale, args.impact, profile=args.profile)
         elif args.command == "observe": result = native_projection_record(root, args.source_id, args.event_type, json.loads(args.payload_json), args.cursor, args.profile)
+        elif args.command == "sde-parse": result = parse_defined_sde(root, json.loads(args.sde_json), profile=args.profile)
         elif args.command == "curate": result = curate(root, schedule_slot=args.schedule_slot, profile=args.profile)
         elif args.command == "review": result = review_candidate(root, args.record_id, args.disposition, args.priority, args.archive, confirm_priority_5=args.confirm_priority_5, edits=json.loads(args.edits_json) if args.edits_json else None, profile=args.profile)
+        elif args.command == "recover": result = recover_transaction(root, args.record_id, accept_current_target=args.accept_current_target, profile=args.profile)
         elif args.command == "learning-status": result = learning_status(root, args.profile)
         elif args.command == "pending-reviews": result = pending_reviews(root, args.profile, limit=args.limit)
         elif args.command == "learning-recompute": result = learning_recompute(root, args.profile, force=args.force)

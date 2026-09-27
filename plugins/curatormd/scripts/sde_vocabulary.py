@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from typing import Any
+from typing import Any, cast
 
 
 VOCABULARY: dict[str, tuple[str, ...]] = {
@@ -42,6 +42,7 @@ _PHRASES = sorted(
 
 
 def match_sde_cues(text: str) -> dict[str, list[str]]:
+    """Find known SDE trigger phrases and return the matched terms by category."""
     found: dict[str, set[str]] = {}
     lowered = text.casefold()
     for category, phrase in _PHRASES:
@@ -55,12 +56,17 @@ def safe_sde_cues(value: Any) -> dict[str, list[str]]:
     """Keep only the known trigger words in a review-facing payload projection."""
     if not isinstance(value, dict):
         return {}
+    raw_object = cast(dict[object, object], value)
+    if not all(isinstance(key, str) for key in raw_object):
+        return {}
+    value_object = cast(dict[str, Any], value)
     result: dict[str, list[str]] = {}
     for category in VOCABULARY:
-        terms = value.get(category)
+        terms = value_object.get(category)
         if not isinstance(terms, list):
             continue
-        selected = sorted({term for term in terms if isinstance(term, str) and term in _TERMS})
+        terms_list = cast(list[Any], terms)
+        selected = sorted({term for term in terms_list if isinstance(term, str) and term in _TERMS})
         if selected:
             result[category] = selected[:20]
     return result

@@ -40,7 +40,11 @@ generated, and ignored by Git. Each ready candidate has **Approve…** and **Do
 not record…** CodeLens actions. Approval asks you to choose priority and the
 destination persistence document; priority 5 requires a second confirmation.
 
-Notes without a safe summary remain visible in the queue but have no approval
-action. CuratorMD does not invent missing candidate text. Approving a candidate
-is an explicit human action and writes only that entry to the selected
-`persistence/*.md` file.
+Records without a complete safe candidate stay out of the review queue. CuratorMD
+stores their redacted payload and the reason in
+`.curatormd/scratch/<record-id>.json` for manual disposition. These records do
+not count as pending reviews, and CuratorMD keeps them reprocessable if their
+source record is later completed. Records with no usable event or candidate
+content are deleted from the temporary inbox. CuratorMD does not invent missing
+candidate text. Approving a ready candidate is an explicit human action and
+writes only that entry to the selected `persistence/*.md` file.

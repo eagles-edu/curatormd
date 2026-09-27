@@ -8,7 +8,7 @@ Choose an unused local schedule time for each repository, such as `06:15` or `06
 From this repository, run:
 
 ```bash
-python3 plugins/gptmd-memory/scripts/enable_repo.py \
+python3 plugins/curatormd/scripts/enable_repo.py \
   --project-root /absolute/path/to/new-repo \
   --profile newrepo-coding \
   --time 06:15
@@ -26,13 +26,13 @@ The command:
 - creates the isolated Hermes profile;
 - sets the Codex app-server runtime and `cron.max_parallel_jobs=1`;
 - registers the local CuratorMD MCP server in that profile;
-- installs the matching `gptmd-memory` and `curation-learning` Hermes skills in that profile;
+- installs the matching `curatormd` and `curation-learning` Hermes skills in that profile;
 - registers the public, read-only OpenAI Developer Docs MCP server;
 - installs a project-bound, redacting Hermes observer;
 - creates one no-agent daily CuratorMD job with an absolute workdir;
 - never commits, pushes, deploys, migrates, deletes, or edits application source.
 
-The `gptmd-memory` Codex plugin also captures bounded SDE vocabulary cues at
+The `curatormd` Codex plugin also captures bounded SDE vocabulary cues at
 prompt submission and turn completion. It stores no prompt/response text. On
 the first plugin update, inspect and trust the bundled hooks in Codex's `/hooks`
 screen before relying on automatic capture.
@@ -58,7 +58,7 @@ daily job until the profile authentication and project root are correct.
 For a preview without writes:
 
 ```bash
-python3 plugins/gptmd-memory/scripts/enable_repo.py \
+python3 plugins/curatormd/scripts/enable_repo.py \
   --project-root /absolute/path/to/new-repo \
   --profile newrepo-coding \
   --time 06:15 \

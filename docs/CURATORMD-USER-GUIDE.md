@@ -6,14 +6,14 @@ asks a person to decide what belongs in the project chronicle, writes approved
 entries to `persistence/*.md`, and measures how later proposals compare with
 human decisions.
 
-The implementation lives in the [`gptmd-memory` plugin](../plugins/gptmd-memory/README.md).
+The implementation lives in the [`curatormd` plugin](../plugins/curatormd/README.md).
 This guide describes the current code. The [learning plan](curation-learning-PLAN4.md)
 contains future analysis and automation design too; features called future or
 not implemented below are not implied to exist because they appear in that plan.
 
 ## What you get
 
-- A small, redacted review card instead of a raw session transcript.
+- A secret-scrubbed, semantically useful review card instead of a raw session transcript.
 - A consistent choice set: approve or do not record, priority 0–5, and one of
   `agents`, `sop`, `history`, or `lessons` for approved entries.
 - Idempotent archive writes with a durable recovery journal. Retrying a review
@@ -41,32 +41,50 @@ or an accuracy gain before those data exist.
 
 ![CuratorMD flow from captured evidence to human review and later QA](curatormd-flow.svg)
 
-### What “bounded, redacted proposal” means
+### What “bounded SDE proposal” means
 
-1. The profile observer captures a limited Hermes event envelope. It includes
-   event identity and structured result facts when available. The hook is
-   best-effort and does not block the agent.
-2. Before persistence redaction, `safe_summary()` chooses a producer supplied
-   safe summary, builds a sentence from structured result fields, or extracts
-   the first sentence of the response as a fallback. The result is sanitized
-   and capped at 1,200 characters.
-3. Top-level `response` and `message` fields are replaced with `[REDACTED]`.
-   Secret-like values are scrubbed from remaining values and sensitive keys
-   are redacted. The entire serialized payload is capped at 24,000 bytes.
-4. Candidate text is derived from the safe summary. The title is capped at 120
-   characters. A pending candidate is never written to canonical knowledge.
-5. The review tool returns no raw response or prompt. Only a finalized human
-   approval can append to one of the four persistence files.
+1. The automatic Codex hook captures only bounded SDE trigger cues and hashed
+   references. Cue words alone never become a candidate.
+2. Hermes reads the full relevant thread and synthesizes a defined SDE with the
+   beginning, middle, and end of the event in one proposal. It must include
+   utility (what future work can reuse) and impact (the evidenced or explicitly
+   expected effect on project quality); rationale and follow-up are optional.
+   The `sde_parse` MCP validates this shape.
+3. Secret-like values are scrubbed. Ordinary project terminology, paths,
+   commands, and outcomes in the synthesis are retained. Raw prompts,
+   responses, tool arguments, and whole transcripts are not stored.
+4. The MCP queues the complete bounded synthesis for review. A pending
+   candidate is never written to canonical knowledge.
+5. Only a finalized human approval can append to one of the four persistence
+   files.
 
-Redaction is a bounded local sanitizer, not a general personal-data detector.
-Do not put secrets, personal details, credentials, or confidential source
-material in a producer supplied summary. Unredacted responses are not retained
-as a recovery source.
+Secret scrubbing is a bounded local sanitizer, not a general personal-data
+detector. Do not include personal data or unrelated confidential material in
+the SDE synthesis. Raw threads are not retained as a recovery source.
 
-The observer currently receives summary/result fields only if Hermes supplies
-them in its event context. If no useful summary or structured facts are
-available, CuratorMD leaves the record ambiguous rather than inventing a
-candidate.
+The automatic hook's vocabulary cues alone do not provide enough meaning for a
+candidate. Hermes must parse the full relevant discussion into the defined SDE
+fields; otherwise CuratorMD leaves the cue record without a candidate.
+
+### Choose the SDE archive
+
+Choose the file by what a future reader needs to know:
+
+- `persistence/AGENTS.md` (`agents`) is the current project, software,
+  subsystem, and agent reference. It explains purpose, features, operation,
+  use, settings, and active rules. Route SDEs about additions, removals,
+  improvements, or other software and subsystem changes here because they
+  update that current reference.
+- `persistence/SOP.md` (`sop`) contains repeatable procedures and recovery
+  steps.
+- `persistence/HISTORY.md` (`history`) records dated decisions and outcomes
+  when their chronology matters more than updating the current reference.
+- `persistence/LESSONS-LEARNED.md` (`lessons`) records verified failure causes
+  and prevention rules.
+
+The human reviewer still chooses the final archive. Give each fact one
+canonical home; a history entry may point to an updated current reference when
+both chronology and current-state knowledge matter.
 
 ## Review a proposal
 
@@ -97,6 +115,16 @@ creating a new review revision. The prior learning observation becomes
 inactive and remains in the audit history. Revisions correct labels; candidate
 text is immutable after finalization.
 
+## Recover a failed approval
+
+New approvals capture the archive file hash when the transaction is prepared.
+`curation_run` automatically retries if that file still matches; a changed file
+continues to block the append. Call `curation_recover` for a specific prepared
+transaction. Older journals without a saved hash require a person to inspect
+the target diff and explicitly set `accept_current_target: true`. To correct a
+proposal before it finalizes, submit a new `curation_review`; the old prepared
+transaction is superseded and cannot append later.
+
 ## MCP tool reference
 
 The stdio MCP server is named `curatormd`. Every tool requires `project_root`
@@ -108,10 +136,12 @@ Git worktree root, and contain `persistence/`.
 | `memory_recall` | `project_root`, `query`; optional `scope`: `all`, `agents`, `sop`, `history`, `lessons` | Search durable project knowledge. |
 | `persistence_status` | `project_root`; optional `profile` | Persistence-file health, scoped Git state, inbox count, capture state, learning phase, and external state location. |
 | `environment_snapshot` | `project_root` | Read approved repository metadata and persistence health; never reads `.env` values. |
-| `native_projection_record` | `project_root`, `source_id`, `event_type`, `payload`; optional `cursor`, `profile` | Store one bounded redacted event in the ignored native inbox. Identical captures are idempotent. |
+| `native_projection_record` | `project_root`, `source_id`, `event_type`, `payload`; optional `cursor`, `profile` | Store one bounded event in the ignored native inbox, scrubbing secrets. Identical captures are idempotent. |
+| `sde_parse` | `project_root`, `sde` object with `title`, `beginning`, `middle`, `end`, `utility`, `impact`, `archive`; optional `rationale`, `follow_up`, `profile` | Validate Hermes's full-thread synthesis, scrub secrets, and queue one complete structured SDE proposal. Utility explains future reuse; impact captures an evidenced or explicitly expected project-quality effect. The raw thread is not stored. |
 | `curation_run` | `project_root`; optional `schedule_slot`, `profile` | Recover interrupted review transactions, form candidates, keep pending records pending, recompute if due, and prune matured external data. |
 | `curation_pending` | `project_root`; optional `profile`, `limit` (1–100, default 30) | Return pending summaries and candidates without raw response fields. |
 | `curation_review` | `project_root`, `record_id`, `disposition`, `priority`; optional `archive`, `confirm_priority_5`, `edits`, `profile` | Finalize or revise a human decision. Approval journals and appends one archive entry; rejection does not create a new archive entry. |
+| `curation_recover` | `project_root`, `record_id`; optional `accept_current_target`, `profile` | Resume a prepared review transaction. Legacy transactions need explicit current-target acceptance after inspecting the target diff. |
 | `learning_status` | `project_root`; optional `profile` | Phase, active row count, model fit status, latest version, and next scheduled recomputation. |
 | `learning_recompute` | `project_root`; optional `profile`, `force` | Refit models and regenerate the report. Normal scheduling is at most once per 21 days; `force` bypasses that interval. |
 | `learning_report` | `project_root`; optional `profile` | Read the latest prospective metrics, corrections, sample counts, QA counts, and automation status. |
@@ -123,27 +153,33 @@ Git worktree root, and contain `persistence/`.
 MCP supports `initialize`, `tools/list`, and `tools/call` over stdio. A tool
 error is returned as a JSON-RPC error and does not terminate the server loop.
 The tool schemas are the authoritative parameter validation surface in
-[`mcp_server.py`](../plugins/gptmd-memory/scripts/mcp_server.py).
+[`mcp_server.py`](../plugins/curatormd/scripts/mcp_server.py).
 
 ## Command line interface
 
-The CLI in [`gptmd_memory.py`](../plugins/gptmd-memory/scripts/gptmd_memory.py)
+The CLI in [`curatormd.py`](../plugins/curatormd/scripts/curatormd.py)
 accepts `--project-root` and optional `--profile` before the subcommand:
 
 ```bash
-python3 plugins/gptmd-memory/scripts/gptmd_memory.py \
+python3 plugins/curatormd/scripts/curatormd.py \
   --project-root /absolute/path/to/repo --profile repo-coding status
 
-python3 plugins/gptmd-memory/scripts/gptmd_memory.py \
+python3 plugins/curatormd/scripts/curatormd.py \
   --project-root /absolute/path/to/repo --profile repo-coding pending-reviews
 
-python3 plugins/gptmd-memory/scripts/gptmd_memory.py \
+python3 plugins/curatormd/scripts/curatormd.py \
   --project-root /absolute/path/to/repo --profile repo-coding learning-status
 
-python3 plugins/gptmd-memory/scripts/gptmd_memory.py \
+python3 plugins/curatormd/scripts/curatormd.py \
   --project-root /absolute/path/to/repo --profile repo-coding learning-report
 
-python3 plugins/gptmd-memory/scripts/gptmd_memory.py \
+python3 plugins/curatormd/scripts/curatormd.py \
+  --project-root /absolute/path/to/repo --profile repo-coding recover RECORD_ID
+
+python3 plugins/curatormd/scripts/curatormd.py \
+  --project-root /absolute/path/to/repo --profile repo-coding recover RECORD_ID --accept-current-target
+
+python3 plugins/curatormd/scripts/curatormd.py \
   --project-root /absolute/path/to/repo --profile repo-coding learning-recompute --force
 ```
 
@@ -355,7 +391,7 @@ maintainers, not as a stable external API.
 | `_record_path(root, profile, collection, record_id)` | Resolve a sanitized record filename and create its private collection directory. |
 | `update_observation(root, profile, path, update)` | Apply a serialized observation update under an external file lock. |
 | `_bounded_text(value, limit)` | Redact and cap text before it can enter a summary. |
-| `safe_summary(payload)` | Select, construct, or extract the bounded pre-redaction summary. |
+| `safe_summary(payload)` | Select or construct a bounded summary while scrubbing credentials and secrets. |
 | `extract_features(record)` | Project structured evidence to the fixed, text-free predictor schema. |
 | `meaningful(record)` | Decide if evidence merits a candidate; return the decision reason. |
 | `_vector(features, vocabulary)` / `_vocabulary(rows)` | Encode the fixed feature map as deterministic numeric vectors. |
@@ -377,14 +413,14 @@ maintainers, not as a stable external API.
 | `record_retrospective(root, profile, record_id, review)` | Store one retrospective review revision idempotently. |
 | `prune(root, profile, now)` | Remove event records only after age and maturity conditions are satisfied. |
 
-### `gptmd_memory.py`
+### `curatormd.py`
 
 | Function group | Functions and responsibility |
 | --- | --- |
 | Time and validation | `utc_now`, `iso_now` format timestamps; `clean`, `reject_secrets`, `redact_text`, and `redact_payload` validate or sanitize data; `canonical_json` and `sha256_text` provide stable serialization and IDs. |
 | Project boundary | `_run_git` runs bounded Git queries; `resolve_project_root` requires an absolute worktree root with `persistence/`; `store_paths`, `_safe_relpath`, `_file_metadata`, `_approved_manifest_metadata`, `_persistence_health`, and `_git_state` inspect only approved paths; `environment_snapshot` assembles safe project metadata. |
 | State and durability | `_plugin_data_root`, `_state_path`, `_load_state`, `_atomic_json`, `_create_json_once`, `_save_state`, `_inbox_dir`, and `_cleanup_inbox` maintain isolated, private, retry-safe state. |
-| Capture and archives | `native_projection_record` stores a redacted capture; `_knowledge_conflict` detects user edits or merge markers; `_atomic_text` replaces a document durably; `_append_reviewed` adds one stable record marker; `curation_lock` serializes repository writes; `_load_inbox` and `_record_path` load pending records. |
+| Capture and archives | `native_projection_record` stores a secret-scrubbed capture; `parse_defined_sde` validates and queues the structured Hermes synthesis; `_knowledge_conflict` detects post-approval edits or merge markers; `_atomic_text` replaces a document durably; `_append_reviewed` adds one stable record marker; `curation_lock` serializes repository writes; `_load_inbox` and `_record_path` load pending records. |
 | Proposal and review transaction | `_candidate_for` creates the safe candidate and snapshot; `_observation_for` separates AI proposal from human label; `_apply_transaction`, `_finalize_review`, and `_recover_transactions` make finalization recoverable; `review_candidate` validates a human review or correction revision; `curate` processes inbox state, recovers journals, recomputes when due, and prunes matured rows. |
 | User operations | `search` searches persistence files; `status` reports health and state; `append_entry` records a reviewed durable entry; `learning_status`, `pending_reviews`, `learning_recompute`, `learning_report`, `qa_outcome_record`, and `retrospective_review` expose the learning workflow; `self_improvement` records a verified lesson; `main` parses the CLI. |
 
@@ -397,7 +433,7 @@ maintainers, not as a stable external API.
 | MCP request loop | Handle initialization, tool discovery, and tool calls over stdio. |
 | `enable_repo.command_text` / `run` | Execute Hermes setup commands, with a dry-run path. |
 | `enable_repo.ensure_curatormd_mcp` | Reconcile the named profile's MCP server to the shared code path and explicit profile identity. |
-| `enable_repo.ensure_profile_skills` | Install or update both CuratorMD skills atomically and idempotently in the profile. |
+| `enable_repo.ensure_profile_skills` | Install or update all three CuratorMD skills atomically and idempotently in the profile. |
 | `enable_repo.repo_root` / `profile_names` | Validate a worktree and enumerate existing Hermes profiles. |
 | `enable_repo.write_if_missing` / `scaffold_knowledge` | Create only missing onboarding contract files and ignored inbox configuration. |
 | `enable_repo.daily_expression` / `main` | Calculate a staggered schedule and orchestrate repository onboarding. |
@@ -405,25 +441,31 @@ maintainers, not as a stable external API.
 | `handler_source` / generated `_source_id` / generated `handle` | Build a profile-bound observer that captures only selected lifecycle events and never blocks Hermes. |
 | `cron_source` / `install_hermes_integration.main` | Generate and install the one-project daily curator runner. |
 
-The [`gptmd-memory` skill](../plugins/gptmd-memory/skills/gptmd-memory/SKILL.md)
+The [`curatormd` skill](../plugins/curatormd/skills/curatormd/SKILL.md)
 describes the general CuratorMD workflow. The
-[`curation-learning` skill](../plugins/gptmd-memory/skills/curation-learning/SKILL.md)
+[`curation-learning` skill](../plugins/curatormd/skills/curation-learning/SKILL.md)
 describes pending review, model reports, and later QA entry.
 
 ## Deployment and repository isolation
 
 ![Shared CuratorMD code with isolated per-profile and per-repository state](curatormd-isolation.svg)
 
-The [`enable_repo.py` onboarding command](../plugins/gptmd-memory/scripts/enable_repo.py)
+The [`enable_repo.py` onboarding command](../plugins/curatormd/scripts/enable_repo.py)
 registers the shared local MCP server, sets `HERMES_PROFILE` explicitly,
-installs both profile skills, and generates profile-bound observer and cron
+installs the workflow, learning, and SDE profile skills, and generates profile-bound observer and cron
 files. Rerunning with the same root/profile/source is idempotent. The code can
 be shared; the state cannot. No model or review label is copied between
 repositories.
 
 CuratorMD writes canonical knowledge only after explicit review. It never
 commits, pushes, deploys, migrates, or deletes application data. Keep
-`.curatormd/native-inbox/` ignored and uncommitted.
+`.curatormd/native-inbox/` and `.curatormd/scratch/` ignored and uncommitted.
+Records that cannot produce a complete safe candidate are preserved in
+`.curatormd/scratch/<record-id>.json` with a reason and a manual-disposition
+field. They do not appear in the pending review document or pending-review
+count, and remain eligible for reprocessing after their source record is
+completed. Records with no usable event or candidate content are deleted from
+the temporary inbox.
 
 ## Current limits at a glance
 

@@ -49,7 +49,7 @@ codex plugin list
 ```
 
 The CuratorMD package is a Codex portable plugin identified by
-`.codex-plugin/plugin.json`. Verify `gptmd-memory@personal` is installed and
+`.codex-plugin/plugin.json`. Verify `curatormd@personal` is installed and
 enabled with `codex plugin list`. If the personal marketplace is absent, add
 the trusted local or Git marketplace that contains the package, then install
 and enable the plugin. Do not treat an unrecognized copy under
@@ -91,7 +91,7 @@ After checking the target and schedule, run the same command without
 - the `curatormd` stdio MCP server;
 - the public, read-only `openaiDeveloperDocs` MCP server;
 - a profile-bound redacted observer hook;
-- a no-agent `gptmd-curatormd` job with the absolute repository workdir.
+- a no-agent `curatormd` job with the absolute repository workdir.
 
 The script is idempotent. It must not create duplicate profiles, MCP entries,
 hooks, or curation jobs.
@@ -104,8 +104,8 @@ installation when the profile already has it:
 
 ```bash
 hermes -p "$profile" skills install \
-  'https://raw.githubusercontent.com/eagles-edu/gptmd/main/plugins/gptmd-memory/skills/gptmd-memory/SKILL.md' \
-  --category productivity --name gptmd-memory --yes
+  'https://raw.githubusercontent.com/eagles-edu/curatormd/main/plugins/curatormd/skills/curatormd/SKILL.md' \
+  --category productivity --name curatormd --yes
 ```
 
 Use a reviewed raw URL or commit-specific source when reproducibility matters.
@@ -121,9 +121,9 @@ hermes -p "$profile" mcp list
 hermes -p "$profile" mcp test curatormd
 hermes -p "$profile" skills list --enabled-only
 hermes -p "$profile" cron list --all
-python3 "$source_dir/gptmd_memory.py" \
+python3 "$source_dir/curatormd.py" \
   --project-root "$project_root" --profile "$profile" status
-python3 "$source_dir/gptmd_memory.py" \
+python3 "$source_dir/curatormd.py" \
   --project-root "$project_root" snapshot
 ```
 

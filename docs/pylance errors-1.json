@@ -1,0 +1,3004 @@
+[{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 385,
+	"startColumn": 14,
+	"endLineNumber": 385,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"safe_summary\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 385,
+	"startColumn": 39,
+	"endLineNumber": 385,
+	"endColumn": 51,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 707,
+	"startColumn": 10,
+	"endLineNumber": 707,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"extract_features\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 707,
+	"startColumn": 35,
+	"endLineNumber": 707,
+	"endColumn": 51,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"meaningful\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 707,
+	"startColumn": 53,
+	"endLineNumber": 707,
+	"endColumn": 63,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"predict\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 707,
+	"startColumn": 65,
+	"endLineNumber": 707,
+	"endColumn": 72,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"snapshot\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 707,
+	"startColumn": 74,
+	"endLineNumber": 707,
+	"endColumn": 82,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"has_meaning\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 708,
+	"startColumn": 5,
+	"endLineNumber": 708,
+	"endColumn": 16,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"reason\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 708,
+	"startColumn": 18,
+	"endLineNumber": 708,
+	"endColumn": 24,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type, \"tuple[None, None, Unknown]\", is partially unknown",
+	"source": "Pylance",
+	"startLineNumber": 710,
+	"startColumn": 16,
+	"endLineNumber": 710,
+	"endColumn": 34,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 714,
+	"startColumn": 14,
+	"endLineNumber": 714,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"safe_summary\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 714,
+	"startColumn": 39,
+	"endLineNumber": 714,
+	"endColumn": 51,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"summary\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 715,
+	"startColumn": 9,
+	"endLineNumber": 715,
+	"endColumn": 16,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"text\" is partially unknown\n  Type of \"text\" is \"Any | Unknown | None\"",
+	"source": "Pylance",
+	"startLineNumber": 718,
+	"startColumn": 5,
+	"endLineNumber": 718,
+	"endColumn": 9,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is partially unknown\n  Type of \"get\" is \"Unknown | Overload[(key: str, default: None = None, /) -> (Any | None), (key: str, default: Any, /) -> Any, (key: str, default: _T@get, /) -> (Any | _T@get)]\"",
+	"source": "Pylance",
+	"startLineNumber": 718,
+	"startColumn": 12,
+	"endLineNumber": 718,
+	"endColumn": 23,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"proposed\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 723,
+	"startColumn": 5,
+	"endLineNumber": 723,
+	"endColumn": 13,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 724,
+	"startColumn": 25,
+	"endLineNumber": 724,
+	"endColumn": 37,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"x\" in function \"__new__\"",
+	"source": "Pylance",
+	"startLineNumber": 724,
+	"startColumn": 25,
+	"endLineNumber": 724,
+	"endColumn": 69,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 725,
+	"startColumn": 35,
+	"endLineNumber": 725,
+	"endColumn": 47,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 726,
+	"startColumn": 8,
+	"endLineNumber": 726,
+	"endColumn": 20,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 730,
+	"startColumn": 34,
+	"endLineNumber": 730,
+	"endColumn": 46,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 734,
+	"startColumn": 10,
+	"endLineNumber": 734,
+	"endColumn": 22,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"proposal\" is partially unknown\n  Type of \"proposal\" is \"dict[str, str | float | int | dict[str, Any] | Unknown | Any]\"",
+	"source": "Pylance",
+	"startLineNumber": 767,
+	"startColumn": 5,
+	"endLineNumber": 767,
+	"endColumn": 13,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 774,
+	"startColumn": 26,
+	"endLineNumber": 774,
+	"endColumn": 38,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is partially unknown\n  Type of \"get\" is \"Unknown | Overload[(key: str, default: None = None, /) -> (Any | None), (key: str, default: Any, /) -> Any, (key: str, default: _T@get, /) -> (Any | _T@get)]\"",
+	"source": "Pylance",
+	"startLineNumber": 776,
+	"startColumn": 27,
+	"endLineNumber": 776,
+	"endColumn": 38,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"prediction\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 784,
+	"startColumn": 5,
+	"endLineNumber": 784,
+	"endColumn": 15,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type, \"tuple[dict[str, str], dict[str, Any], Unknown]\", is partially unknown",
+	"source": "Pylance",
+	"startLineNumber": 785,
+	"startColumn": 12,
+	"endLineNumber": 785,
+	"endColumn": 106,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 789,
+	"startColumn": 10,
+	"endLineNumber": 789,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"extract_features\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 789,
+	"startColumn": 35,
+	"endLineNumber": 789,
+	"endColumn": 51,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 831,
+	"startColumn": 10,
+	"endLineNumber": 831,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"write_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 831,
+	"startColumn": 35,
+	"endLineNumber": 831,
+	"endColumn": 45,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 831,
+	"startColumn": 47,
+	"endLineNumber": 831,
+	"endColumn": 60,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 849,
+	"startColumn": 14,
+	"endLineNumber": 849,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"save_observation\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 849,
+	"startColumn": 39,
+	"endLineNumber": 849,
+	"endColumn": 55,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_result\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 850,
+	"startColumn": 9,
+	"endLineNumber": 850,
+	"endColumn": 24,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"old_path\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 853,
+	"startColumn": 13,
+	"endLineNumber": 853,
+	"endColumn": 21,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"is_file\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 854,
+	"startColumn": 16,
+	"endLineNumber": 854,
+	"endColumn": 32,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 858,
+	"startColumn": 22,
+	"endLineNumber": 858,
+	"endColumn": 39,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"update_observation\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 858,
+	"startColumn": 47,
+	"endLineNumber": 858,
+	"endColumn": 65,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 879,
+	"startColumn": 10,
+	"endLineNumber": 879,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"write_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 879,
+	"startColumn": 35,
+	"endLineNumber": 879,
+	"endColumn": 45,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 879,
+	"startColumn": 47,
+	"endLineNumber": 879,
+	"endColumn": 60,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 885,
+	"startColumn": 10,
+	"endLineNumber": 885,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"read_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 885,
+	"startColumn": 35,
+	"endLineNumber": 885,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 885,
+	"startColumn": 46,
+	"endLineNumber": 885,
+	"endColumn": 59,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_dir\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 903,
+	"startColumn": 5,
+	"endLineNumber": 903,
+	"endColumn": 17,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"journal\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 904,
+	"startColumn": 5,
+	"endLineNumber": 904,
+	"endColumn": 12,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 918,
+	"startColumn": 18,
+	"endLineNumber": 918,
+	"endColumn": 35,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"write_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 918,
+	"startColumn": 43,
+	"endLineNumber": 918,
+	"endColumn": 53,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"journal\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 923,
+	"startColumn": 13,
+	"endLineNumber": 923,
+	"endColumn": 20,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 944,
+	"startColumn": 14,
+	"endLineNumber": 944,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"write_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 944,
+	"startColumn": 39,
+	"endLineNumber": 944,
+	"endColumn": 49,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 954,
+	"startColumn": 10,
+	"endLineNumber": 954,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"read_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 954,
+	"startColumn": 35,
+	"endLineNumber": 954,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"write_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 954,
+	"startColumn": 46,
+	"endLineNumber": 954,
+	"endColumn": 56,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 954,
+	"startColumn": 58,
+	"endLineNumber": 954,
+	"endColumn": 71,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"directory\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 957,
+	"startColumn": 9,
+	"endLineNumber": 957,
+	"endColumn": 18,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"matches\" is partially unknown\n  Type of \"matches\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 958,
+	"startColumn": 9,
+	"endLineNumber": 958,
+	"endColumn": 16,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"glob\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 958,
+	"startColumn": 26,
+	"endLineNumber": 958,
+	"endColumn": 40,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"",
+	"source": "Pylance",
+	"startLineNumber": 958,
+	"startColumn": 26,
+	"endLineNumber": 958,
+	"endColumn": 89,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"prepared\" is partially unknown\n  Type of \"prepared\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 959,
+	"startColumn": 9,
+	"endLineNumber": 959,
+	"endColumn": 17,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"item\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 959,
+	"startColumn": 30,
+	"endLineNumber": 959,
+	"endColumn": 34,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 959,
+	"startColumn": 49,
+	"endLineNumber": 959,
+	"endColumn": 72,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"path\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 962,
+	"startColumn": 9,
+	"endLineNumber": 962,
+	"endColumn": 13,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"transaction\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 963,
+	"startColumn": 9,
+	"endLineNumber": 963,
+	"endColumn": 20,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 964,
+	"startColumn": 16,
+	"endLineNumber": 964,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"archive\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 967,
+	"startColumn": 13,
+	"endLineNumber": 967,
+	"endColumn": 20,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 967,
+	"startColumn": 23,
+	"endLineNumber": 967,
+	"endColumn": 38,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"transaction\" in function \"_apply_transaction\"",
+	"source": "Pylance",
+	"startLineNumber": 978,
+	"startColumn": 60,
+	"endLineNumber": 978,
+	"endColumn": 71,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 982,
+	"startColumn": 10,
+	"endLineNumber": 982,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"read_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 982,
+	"startColumn": 35,
+	"endLineNumber": 982,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 982,
+	"startColumn": 46,
+	"endLineNumber": 982,
+	"endColumn": 59,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"directory\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 984,
+	"startColumn": 5,
+	"endLineNumber": 984,
+	"endColumn": 14,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"path\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 985,
+	"startColumn": 9,
+	"endLineNumber": 985,
+	"endColumn": 13,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"glob\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 985,
+	"startColumn": 24,
+	"endLineNumber": 985,
+	"endColumn": 38,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"",
+	"source": "Pylance",
+	"startLineNumber": 985,
+	"startColumn": 24,
+	"endLineNumber": 985,
+	"endColumn": 48,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"exists\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 985,
+	"startColumn": 53,
+	"endLineNumber": 985,
+	"endColumn": 69,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"transaction\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 986,
+	"startColumn": 9,
+	"endLineNumber": 986,
+	"endColumn": 20,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 987,
+	"startColumn": 31,
+	"endLineNumber": 987,
+	"endColumn": 46,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 987,
+	"startColumn": 79,
+	"endLineNumber": 987,
+	"endColumn": 94,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"transaction\" in function \"_apply_transaction\"",
+	"source": "Pylance",
+	"startLineNumber": 990,
+	"startColumn": 69,
+	"endLineNumber": 990,
+	"endColumn": 80,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"get\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 992,
+	"startColumn": 42,
+	"endLineNumber": 992,
+	"endColumn": 57,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1086,
+	"startColumn": 10,
+	"endLineNumber": 1086,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"prune\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1086,
+	"startColumn": 35,
+	"endLineNumber": 1086,
+	"endColumn": 40,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"recompute\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1086,
+	"startColumn": 42,
+	"endLineNumber": 1086,
+	"endColumn": 51,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1179,
+	"startColumn": 13,
+	"endLineNumber": 1179,
+	"endColumn": 21,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"retention\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1183,
+	"startColumn": 13,
+	"endLineNumber": 1183,
+	"endColumn": 22,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1219,
+	"startColumn": 10,
+	"endLineNumber": 1219,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_status_impl\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1219,
+	"startColumn": 45,
+	"endLineNumber": 1219,
+	"endColumn": 65,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1245,
+	"startColumn": 10,
+	"endLineNumber": 1245,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_status_impl\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1245,
+	"startColumn": 45,
+	"endLineNumber": 1245,
+	"endColumn": 65,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1246,
+	"startColumn": 12,
+	"endLineNumber": 1246,
+	"endColumn": 47,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"sde_vocabulary\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1257,
+	"startColumn": 10,
+	"endLineNumber": 1257,
+	"endColumn": 24,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"safe_sde_cues\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1257,
+	"startColumn": 32,
+	"endLineNumber": 1257,
+	"endColumn": 45,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"before\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1261,
+	"startColumn": 5,
+	"endLineNumber": 1261,
+	"endColumn": 11,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"after\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1262,
+	"startColumn": 5,
+	"endLineNumber": 1262,
+	"endColumn": 10,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"categories\" is partially unknown\n  Type of \"categories\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1263,
+	"startColumn": 5,
+	"endLineNumber": 1263,
+	"endColumn": 15,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is partially unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"\n  Argument type is \"set[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1263,
+	"startColumn": 25,
+	"endLineNumber": 1263,
+	"endColumn": 49,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"__init__\"",
+	"source": "Pylance",
+	"startLineNumber": 1263,
+	"startColumn": 29,
+	"endLineNumber": 1263,
+	"endColumn": 35,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"__init__\"",
+	"source": "Pylance",
+	"startLineNumber": 1263,
+	"startColumn": 43,
+	"endLineNumber": 1263,
+	"endColumn": 48,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"terms\" is partially unknown\n  Type of \"terms\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 5,
+	"endLineNumber": 1264,
+	"endColumn": 10,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is partially unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"\n  Argument type is \"set[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 20,
+	"endLineNumber": 1264,
+	"endColumn": 101,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"cues\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 30,
+	"endLineNumber": 1264,
+	"endColumn": 34,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"values\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 58,
+	"endLineNumber": 1264,
+	"endColumn": 64,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"values\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 68,
+	"endLineNumber": 1264,
+	"endColumn": 79,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"term\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1264,
+	"startColumn": 86,
+	"endLineNumber": 1264,
+	"endColumn": 90,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1305,
+	"startColumn": 10,
+	"endLineNumber": 1305,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"recompute\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1305,
+	"startColumn": 35,
+	"endLineNumber": 1305,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1306,
+	"startColumn": 12,
+	"endLineNumber": 1306,
+	"endColumn": 49,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1310,
+	"startColumn": 10,
+	"endLineNumber": 1310,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"report\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1310,
+	"startColumn": 35,
+	"endLineNumber": 1310,
+	"endColumn": 41,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1311,
+	"startColumn": 12,
+	"endLineNumber": 1311,
+	"endColumn": 33,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1325,
+	"startColumn": 10,
+	"endLineNumber": 1325,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"read_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1325,
+	"startColumn": 35,
+	"endLineNumber": 1325,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1325,
+	"startColumn": 46,
+	"endLineNumber": 1325,
+	"endColumn": 59,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"record_qa_outcome\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1325,
+	"startColumn": 61,
+	"endLineNumber": 1325,
+	"endColumn": 78,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"directory\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1342,
+	"startColumn": 5,
+	"endLineNumber": 1342,
+	"endColumn": 14,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"matches\" is partially unknown\n  Type of \"matches\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1343,
+	"startColumn": 5,
+	"endLineNumber": 1343,
+	"endColumn": 12,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"glob\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1343,
+	"startColumn": 22,
+	"endLineNumber": 1343,
+	"endColumn": 36,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"",
+	"source": "Pylance",
+	"startLineNumber": 1343,
+	"startColumn": 22,
+	"endLineNumber": 1343,
+	"endColumn": 60,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"exists\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1343,
+	"startColumn": 65,
+	"endLineNumber": 1343,
+	"endColumn": 81,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"observation_path\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1345,
+	"startColumn": 5,
+	"endLineNumber": 1345,
+	"endColumn": 21,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"result\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1355,
+	"startColumn": 5,
+	"endLineNumber": 1355,
+	"endColumn": 11,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1357,
+	"startColumn": 14,
+	"endLineNumber": 1357,
+	"endColumn": 31,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"update_observation\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1357,
+	"startColumn": 39,
+	"endLineNumber": 1357,
+	"endColumn": 57,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1378,
+	"startColumn": 10,
+	"endLineNumber": 1378,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"read_json\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1378,
+	"startColumn": 35,
+	"endLineNumber": 1378,
+	"endColumn": 44,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"learning_root\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1378,
+	"startColumn": 46,
+	"endLineNumber": 1378,
+	"endColumn": 59,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"record_retrospective\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1378,
+	"startColumn": 61,
+	"endLineNumber": 1378,
+	"endColumn": 81,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"directory\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1387,
+	"startColumn": 5,
+	"endLineNumber": 1387,
+	"endColumn": 14,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"matches\" is partially unknown\n  Type of \"matches\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1388,
+	"startColumn": 5,
+	"endLineNumber": 1388,
+	"endColumn": 12,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"glob\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1388,
+	"startColumn": 22,
+	"endLineNumber": 1388,
+	"endColumn": 36,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"",
+	"source": "Pylance",
+	"startLineNumber": 1388,
+	"startColumn": 22,
+	"endLineNumber": 1388,
+	"endColumn": 60,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"exists\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1388,
+	"startColumn": 65,
+	"endLineNumber": 1388,
+	"endColumn": 81,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"observation_path\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1390,
+	"startColumn": 5,
+	"endLineNumber": 1390,
+	"endColumn": 21,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"existing_reviews\" is partially unknown\n  Type of \"existing_reviews\" is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1391,
+	"startColumn": 5,
+	"endLineNumber": 1391,
+	"endColumn": 21,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownMemberType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownMemberType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"glob\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1391,
+	"startColumn": 31,
+	"endLineNumber": 1391,
+	"endColumn": 91,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is unknown\n  Argument corresponds to parameter \"iterable\" in function \"sorted\"",
+	"source": "Pylance",
+	"startLineNumber": 1391,
+	"startColumn": 31,
+	"endLineNumber": 1391,
+	"endColumn": 115,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownArgumentType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownArgumentType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Argument type is partially unknown\n  Argument corresponds to parameter \"obj\" in function \"len\"\n  Argument type is \"list[Unknown]\"",
+	"source": "Pylance",
+	"startLineNumber": 1397,
+	"startColumn": 20,
+	"endLineNumber": 1397,
+	"endColumn": 36,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"result\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1399,
+	"startColumn": 5,
+	"endLineNumber": 1399,
+	"endColumn": 11,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportMissingImports",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportMissingImports.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Import \"curation_learning\" could not be resolved",
+	"source": "Pylance",
+	"startLineNumber": 1400,
+	"startColumn": 10,
+	"endLineNumber": 1400,
+	"endColumn": 27,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Type of \"update_observation\" is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1400,
+	"startColumn": 35,
+	"endLineNumber": 1400,
+	"endColumn": 53,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+},{
+	"resource": "/home/eaglesvn/dockerz/curatormd/plugins/curatormd/scripts/curatormd.py",
+	"owner": "Pylance",
+	"code": {
+		"value": "reportUnknownVariableType",
+		"target": {
+			"$mid": 1,
+			"path": "/microsoft/pylance-release/blob/main/docs/diagnostics/reportUnknownVariableType.md",
+			"scheme": "https",
+			"authority": "github.com"
+		}
+	},
+	"severity": 8,
+	"message": "Return type is unknown",
+	"source": "Pylance",
+	"startLineNumber": 1404,
+	"startColumn": 12,
+	"endLineNumber": 1404,
+	"endColumn": 18,
+	"modelVersionId": 2,
+	"origin": "extHost1"
+}]

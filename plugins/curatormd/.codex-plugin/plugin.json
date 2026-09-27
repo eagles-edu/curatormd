@@ -1,5 +1,5 @@
 {
-  "name": "gptmd-memory",
+  "name": "curatormd",
   "version": "0.4.7+codex.20260926",
   "description": "CuratorMD: local-only project intelligence, reviewable persistence, and safe evidence-based curation for Codex projects.",
   "author": {

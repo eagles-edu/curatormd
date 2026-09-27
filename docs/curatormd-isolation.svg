@@ -11,7 +11,7 @@
   <text x="36" y="42" class="head">One implementation; independent learning boundaries</text>
   <rect class="box" x="35" y="98" width="265" height="130" fill="#e0f2fe" stroke="#0284c7"/>
   <text x="58" y="132" class="head">Shared source</text>
-  <text x="58" y="163" class="copy"><tspan x="58">plugins/gptmd-memory/scripts</tspan><tspan x="58" dy="22">MCP + curation + learning</tspan><tspan x="58" dy="22">single reviewed implementation</tspan></text>
+  <text x="58" y="163" class="copy"><tspan x="58">plugins/curatormd/scripts</tspan><tspan x="58" dy="22">MCP + curation + learning</tspan><tspan x="58" dy="22">single reviewed implementation</tspan></text>
   <path d="M302 162H344M344 162V105M344 162V405" fill="none" stroke="#475569" stroke-width="2"/>
   <g>
     <path d="M344 105H377M344 205H377M344 305H377M344 405H377" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>

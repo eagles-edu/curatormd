@@ -8,6 +8,8 @@ import os
 import tempfile
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parents[3]
+
 
 def atomic_write(path: Path, content: str, mode: int) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -39,7 +41,7 @@ PROJECT_ROOT = {str(project_root)!r}
 PROFILE = {profile!r}
 sys.path.insert(0, str(SOURCE_DIR))
 
-from gptmd_memory import native_projection_record  # noqa: E402
+from curatormd import native_projection_record  # noqa: E402
 
 
 def _source_id(event_type: str, context: dict) -> str:
@@ -88,7 +90,7 @@ import json
 import sys
 
 sys.path.insert(0, {str(source_dir)!r})
-from gptmd_memory import curate  # noqa: E402
+from curatormd import curate  # noqa: E402
 
 
 if __name__ == "__main__":
@@ -104,8 +106,8 @@ def main() -> int:
     parser.add_argument("--hermes-home", default=os.environ.get("HERMES_HOME", str(Path.home() / ".hermes")))
     parser.add_argument(
         "--source-dir",
-        default=str(REPO_ROOT / "plugins" / "gptmd-memory" / "scripts"),
-        help="Directory containing gptmd_memory.py; use the central CuratorMD source for new repos.",
+        default=str(REPO_ROOT / "plugins" / "curatormd" / "scripts"),
+        help="Directory containing curatormd.py; use the central CuratorMD source for new repos.",
     )
     parser.add_argument("--schedule-slot", required=True)
     args = parser.parse_args()
@@ -127,7 +129,7 @@ def main() -> int:
     for hook_dir in hook_dirs:
         atomic_write(hook_dir / "HOOK.yaml", manifest, 0o600)
         atomic_write(hook_dir / "handler.py", handler_source(project_root, source_dir, args.profile), 0o700)
-    script_path = profile_home / "scripts" / "gptmd-curatormd.py"
+    script_path = profile_home / "scripts" / "curatormd.py"
     atomic_write(script_path, cron_source(project_root, source_dir, args.profile, args.schedule_slot), 0o700)
     for hook_dir in hook_dirs:
         print(f"hook={hook_dir}")

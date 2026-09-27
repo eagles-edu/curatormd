@@ -1,0 +1,5 @@
+[MASTER]
+init-hook = import sys; from pathlib import Path; sys.path.insert(0, str(Path.cwd() / "plugins" / "curatormd" / "scripts"))
+
+[FORMAT]
+max-line-length = 88

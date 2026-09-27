@@ -9,21 +9,30 @@ For the complete user guide—including every MCP tool, CLI workflow, Python
 function inventory, model formulas and limits, and SVG diagrams—see
 [`docs/CURATORMD-USER-GUIDE.md`](../../docs/CURATORMD-USER-GUIDE.md).
 
-The observer is project-scoped and best-effort. It records bounded, redacted
-metadata from the configured Hermes profile; capture failure never blocks the
-agent. A curator run can promote only an explicitly reviewed candidate. It
+The observer is project-scoped and best-effort. It records bounded metadata
+from the configured Hermes profile and scrubs secrets; capture failure never
+blocks the agent. A curator run can promote only an explicitly reviewed candidate. It
 does not commit, push, deploy, run migrations, delete data, or modify
 application source.
+
+Incomplete records that cannot produce a complete safe candidate are written
+to `.curatormd/scratch/<record-id>.json` for manual disposition. They are
+excluded from pending review counts and remain eligible for reprocessing if
+their source record is later completed. Records with no usable event or
+candidate content are removed from the temporary inbox.
 
 ## Significant Development Event capture
 
 The bundled Codex hooks inspect submitted prompts and completed assistant
 responses for the SDE vocabulary in `hooks/sde_capture.py`. A match creates a
-before/after candidate in that repository's ignored native inbox. The payload
-contains only matched vocabulary, cue categories, and hashed session/turn
-references; it never stores prompt or response text. Capture is best-effort and
-never blocks a turn. Candidates remain unreviewed until a person approves or
-rejects them. Hooks run only in repositories with a matching ignored
+before/after cue record in that repository's ignored native inbox. Cue matches
+alone never become proposal prose. Hermes reviews the full relevant thread,
+synthesizes one complete SDE with a beginning (trigger/context), middle
+(decisions/work), and end (outcome/verification), plus a concrete future-use
+`utility` and project-quality `impact`, then calls `sde_parse`. The MCP stores
+that secret-scrubbed synthesis but not the raw prompt, response, or transcript.
+Capture is best-effort and never blocks a turn. Candidates remain unreviewed
+until a person approves or rejects them. Hooks run only in repositories with a matching ignored
 `.curatormd/project.json` root/profile marker, written by `enable_repo.py`.
 Codex requires the user to inspect and trust plugin hooks once in `/hooks`.
 See [`docs/SDE-CAPTURE.md`](../../docs/SDE-CAPTURE.md) for the trigger vocabulary
@@ -36,6 +45,8 @@ and capture boundaries.
 - `environment_snapshot` — collect safe project metadata without reading env
   values, credentials, private keys, or unrelated repository data.
 - `native_projection_record` — append a redacted, idempotent native projection.
+- `sde_parse` — validate Hermes's chronological full-thread SDE synthesis,
+  scrub secrets, and queue one complete pending candidate.
 - `curation_run` — create bounded proposals, recover interrupted finalizations,
   and promote only explicitly reviewed candidates.
 - `curation_pending` — list pending summaries and review selections without raw
@@ -44,6 +55,8 @@ and capture boundaries.
   and optional text corrections. Approved writes use a durable journal and
   stable record markers. Corrected labels create a superseding observation
   while preserving the prior review for audit.
+- `curation_recover` — resume a prepared transaction; legacy journals require
+  explicit acceptance of the current target hash after diff review.
 - `learning_status`, `learning_recompute`, and `learning_report` — inspect or
   recompute project-scoped models and prospective metrics. Training uses the
   active six-month human-label window and recomputes at most every 21 days.
@@ -55,7 +68,7 @@ and capture boundaries.
 
 All tools require an explicit absolute `project_root` that resolves to the
 project's Git worktree root. The MCP server identifier is the machine-safe
-`curatormd`; the plugin package remains `gptmd-memory` for marketplace
+`curatormd`; the plugin package remains `curatormd` for marketplace
 compatibility.
 
 Learning state lives outside each repository under a profile-and-worktree
@@ -64,8 +77,8 @@ outcomes, review state, or transaction journals. Per-worktree locking
 serializes writes; state updates merge observer and curator data safely.
 Automatic approval and rejection remain disabled.
 
-Each Hermes profile receives the `gptmd-memory` workflow skill and the
-`curation-learning` review/report skill from this package. Repository onboarding
+Each Hermes profile receives the `curatormd` workflow, `curation-learning`
+review/report, and `sde-curation` full-thread synthesis skills from this package. Repository onboarding
 reconciles profile skills and MCP configuration against the shared source.
 
 ## Knowledge authority

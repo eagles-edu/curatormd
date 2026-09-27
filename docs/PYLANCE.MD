@@ -1,7 +1,7 @@
 # Pylance and Pyright diagnostics
 
 This document records the analysis and cleanup of the Pylance Problems export
-for `plugins/gptmd-memory/scripts/curation_learning.py`.
+for `plugins/curatormd/scripts/curation_learning.py`.
 
 ## Result
 
@@ -13,7 +13,7 @@ The original export contained 90 error-severity diagnostics:
 | `reportUnknownMemberType`   |    33 | The unknown JSON types propagated into calls such as `.get()`, `.append()`, and `.sort()`. |
 | `reportUnknownArgumentType` |    17 | Values from those untyped structures reached typed functions.                              |
 | `reportUnknownLambdaType`   |     2 | The active-row sort key inherited unknown values.                                          |
-| `reportPrivateUsage`        |     4 | The learning module imported private state and file helpers from `gptmd_memory.py`.        |
+| `reportPrivateUsage`        |     4 | The learning module imported private state and file helpers from `curatormd.py`.        |
 | `reportUnusedFunction`      |     1 | The analyzer did not connect `_meaningful()` to its dynamic import caller.                 |
 
 The main cause was decoded JSON being narrowed only to a generic `dict`, which
@@ -40,7 +40,7 @@ was run as part of this diagnostics task.
 - Added explicit annotations for feature maps, training rows, threshold lists,
   calibration bins, and filesystem path collections.
 - Added public `plugin_data_root()`, `atomic_json()`, and `create_json_once()`
-  wrappers in `gptmd_memory.py`. Learning code now uses these APIs rather than
+  wrappers in `curatormd.py`. Learning code now uses these APIs rather than
   importing private helpers.
 - Promoted `_meaningful()` to the public `meaningful()` API and updated its
   dynamic-import caller. This makes the module boundary explicit and preserves

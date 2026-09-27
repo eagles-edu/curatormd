@@ -53,15 +53,23 @@ function check(root, profile) {
 
 function runCurator(root, profile, command, extraArgs = []) {
   return new Promise((resolve, reject) => {
-    const candidates = [path.join(root, 'plugins', 'gptmd-memory', 'scripts', 'gptmd_memory.py')];
-    if (process.env.CURATORMD_SOURCE_DIR) candidates.push(path.join(process.env.CURATORMD_SOURCE_DIR, 'gptmd_memory.py'));
-    const codexPlugins = path.join(os.homedir(), '.codex', 'plugins', 'cache', 'personal', 'gptmd-memory');
+    const candidates = [path.join(root, 'plugins', 'curatormd', 'scripts', 'curatormd.py')];
+    if (process.env.CURATORMD_SOURCE_DIR) candidates.push(path.join(process.env.CURATORMD_SOURCE_DIR, 'curatormd.py'));
+    const profileConfig = path.join(os.homedir(), '.hermes', 'profiles', profile, 'config.yaml');
+    try {
+      const config = fs.readFileSync(profileConfig, 'utf8');
+      const serverScript = config.match(/^\s*-\s+([^\n]*curatormd\/scripts\/mcp_server\.py)\s*$/m)?.[1];
+      if (serverScript) candidates.push(path.join(path.dirname(serverScript), 'curatormd.py'));
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+    const codexPlugins = path.join(os.homedir(), '.codex', 'plugins', 'cache', 'personal', 'curatormd');
     if (fs.existsSync(codexPlugins)) {
       for (const version of fs.readdirSync(codexPlugins).sort().reverse()) {
-        candidates.push(path.join(codexPlugins, version, 'scripts', 'gptmd_memory.py'));
+        candidates.push(path.join(codexPlugins, version, 'scripts', 'curatormd.py'));
       }
     }
-    candidates.push(path.join(os.homedir(), '.hermes', 'plugins', 'gptmd-memory', 'scripts', 'gptmd_memory.py'));
+    candidates.push(path.join(os.homedir(), '.hermes', 'plugins', 'curatormd', 'scripts', 'curatormd.py'));
     const script = candidates.find((candidate) => fs.existsSync(candidate));
     if (!script) {
       reject(new Error('CuratorMD runtime was not found in this workspace or the installed plugin paths.'));
@@ -156,6 +164,7 @@ function reviewDocument(records, previousText = '') {
     '> Each record has three parallel parts: (1) concise metadata and safe payload JSON, (2) CuratorMD’s AI proposal, and (3) your editable decision copy.',
     '> The decision block repeats the AI proposal on purpose: edit your copy while keeping the original recommendation visible for comparison.',
     '> Edit the JSON in “Your decision” before choosing an action. `Approve…` uses those values and the selected archive; `Do not record…` records a rejection. The AI proposal is advisory and remains unchanged.',
+    '> `utility` describes what future work can reuse from the event. `impact` describes the evidenced or explicitly expected effect on project quality. Use concrete decisions, repair paths, constraints, verification, and outcomes; these fields do not describe review status.',
     '> Approval appends your edited title and content to the chosen persistence archive; rejection does not write canonical knowledge.',
     '',
     '---',
@@ -295,10 +304,12 @@ function activate(context) {
   let activeProfile;
   let refreshing = false;
   let refreshQueued = false;
+  let refreshWaiters = [];
   let pollIntervalSeconds = 30;
   const refresh = async () => {
     if (refreshing) {
       refreshQueued = true;
+      await new Promise((resolve) => refreshWaiters.push(resolve));
       return;
     }
     refreshing = true;
@@ -308,7 +319,7 @@ function activate(context) {
     if (!root) {
       led.text = '$(circle-slash) CuratorMD: NO WORKSPACE';
       led.color = COLORS.gray;
-      led.tooltip = 'Open the gptmd workspace to inspect CuratorMD.';
+      led.tooltip = 'Open the CuratorMD workspace to inspect CuratorMD.';
       led.command = 'curatormdStatus.showDetails';
       led.show();
       return;
@@ -333,11 +344,15 @@ function activate(context) {
     led.show();
     if (lastStatus.pendingReview > 0 && lastStatus.pendingReview !== notifiedPending) {
       notifiedPending = lastStatus.pendingReview;
-      const action = await vscode.window.showInformationMessage(
+      void vscode.window.showInformationMessage(
         `CuratorMD has ${lastStatus.pendingReview} notes waiting for review.`,
         'Open Review Notes',
-      );
-      if (action === 'Open Review Notes') await openReviewQueue(true);
+      ).then((action) => {
+        if (action === 'Open Review Notes') return openReviewQueue(true);
+        return undefined;
+      }).catch((error) => {
+        vscode.window.showErrorMessage(`Could not open CuratorMD review notes: ${error.message}`);
+      });
     } else if (lastStatus.pendingReview === 0) {
       notifiedPending = 0;
     }
@@ -345,7 +360,17 @@ function activate(context) {
       refreshing = false;
       if (refreshQueued) {
         refreshQueued = false;
-        void refresh();
+        try {
+          await refresh();
+        } finally {
+          const waiters = refreshWaiters;
+          refreshWaiters = [];
+          for (const resolve of waiters) resolve();
+        }
+      } else {
+        const waiters = refreshWaiters;
+        refreshWaiters = [];
+        for (const resolve of waiters) resolve();
       }
     }
   };
