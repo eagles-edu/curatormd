@@ -1,6 +1,6 @@
-name: Pylint
+name: CuratorMD checks
 
-on: [push]
+on: [push, pull_request]
 
 permissions:
   contents: read
@@ -21,6 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pylint
+          python -m pip install pylint pyright
+      - name: Run CuratorMD tests
+        run: python -m unittest discover -s plugins/curatormd/tests -v
+      - name: Check Python types with Pyright
+        run: python -m pyright --project .
       - name: Analyse the code with Pylint
         run: python -m pylint --errors-only $(git ls-files '*.py')

@@ -1,0 +1,7 @@
+{
+  "name": "curatormd-system",
+  "private": true,
+  "scripts": {
+    "update-git": "node scripts/update-git.js"
+  }
+}

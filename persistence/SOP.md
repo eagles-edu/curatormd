@@ -12,6 +12,48 @@ for typed learning/model code. For JSON-heavy boundary modules, use an explicit
 file-level mode and narrow loaded values before nested access. Run `pyright`
 from the repository root and require zero diagnostics.
 
+## Repair and document test or configuration failures
+
+1. Reproduce the reported failure with the repository interpreter and the same test or configuration command. Record the test name, expected value, actual value, and active configuration.
+2. Trace the result to the owning implementation and check the intended behavior against this SOP and the relevant caller. Distinguish an implementation defect from an assertion or configuration that no longer matches the contract.
+3. Make the narrowest repair in the owning source, configuration, or test. Change an assertion only after confirming the intended behavior; do not hide a real regression by weakening the check.
+4. Rerun the focused case, then the full relevant suite. For Python changes, run project Pyright and the configured Pylint check. Run `git diff --check` before considering the repair verified.
+5. Immediately after verification, add the confirmed cause and repeatable repair or recovery steps to this SOP. If the failure reveals a prevention rule rather than a recurring procedure, record that rule in `persistence/LESSONS-LEARNED.md` as well.
+
+### Verified curation assertion repair (2026-09-28)
+
+The two failures recorded during the plugin rename were stale test expectations, not runtime defects:
+
+- `test_unreviewed_projection_is_ambiguous_and_not_promoted` expected one ambiguous item but received none. Its `{ "note": "candidate" }` payload had no disposition content, so curation removes the empty projection. The test now checks `empty_removed`, no pending review or scratch item, and no canonical archive write.
+- `test_vocabulary_only_sde_capture_never_becomes_proposal_text` expected one suppressed item but received none. Cue-only SDE metadata is retained in `.curatormd/scratch/` with `awaiting-manual-disposition`; it must not enter pending review or be labeled as a routine suppression. The test now checks the scratch artifact and its reason.
+
+To verify these cases and the complete suite, run:
+
+```bash
+./.venv/bin/python -m unittest discover -s plugins/curatormd/tests -v
+pyright --project .
+pylint --errors-only $(git ls-files '*.py')
+git diff --check
+```
+
+The verified run passed all 19 tests, strict Pyright (`0 errors, 0 warnings, 0 informations`), Pylint with `--errors-only`, and the diff check. No production code change was needed; the assertions were corrected to match the established empty-projection and cue-only SDE handling.
+
+### Verified Pylance workspace-setting repair (2026-09-28)
+
+When this repository has `pyrightconfig.json`, Pylance reports `settingsNotOverridable` if `.vscode/settings.json` also sets `python.analysis.extraPaths` or `python.analysis.typeCheckingMode`. Remove those duplicate workspace settings. Keep strictness and import search paths in `pyrightconfig.json` (`typeCheckingMode` and the relevant execution-environment `extraPaths`) so Pylance and command-line Pyright share the project configuration. Preserve unrelated workspace settings such as the project interpreter and formatter.
+
+Validate with `python3 -m json.tool .vscode/settings.json` and `pyright --project .`. If the old diagnostics remain in VS Code after the settings are fixed, refresh the Problems panel or reload the window.
+
+### Verified Pylint line-length repair (2026-09-28)
+
+For `C0301:line-too-long` in Python tests, keep the configured 88-character limit. Split long test strings into adjacent literals inside parentheses so Python preserves the exact value. If a test method name itself exceeds the limit, shorten the name while retaining the `test_` prefix and keep the behavior clear in its docstring. Verify with `pylint --disable=all --enable=C0301 path/to/test_file.py`, project Pyright, and `git diff --check`.
+
+## Commit and push CuratorMD development changes
+
+Run `npm run update-git` from the repository root. The script stages all non-ignored changes with `git add .`, then pre-fills an editable commit-message prompt with the next `curatorMD-dev_` sequence. Press Enter to accept and commit; an optional description may follow the generated version. The script pushes the current branch to its configured upstream.
+
+The four numeric fields use base 100: increment the last field through `99`, then carry to the previous field and reset the last to `00` (`curatorMD-dev_0.0.0.99` becomes `curatorMD-dev_0.0.01.00`; `curatorMD-dev_0.0.99.99` becomes `curatorMD-dev_0.1.00.00`). Ctrl+C cancels the commit prompt but leaves changes staged. If the push fails after a successful commit, push that commit with `git push` before starting another numbered update.
+
 ## Enable a consumer repository
 
 Use `plugins/curatormd/scripts/enable_repo.py` with an absolute Git root, a dedicated Hermes profile, and an unused local schedule. Preserve existing consumer files and keep generated runtime state ignored.

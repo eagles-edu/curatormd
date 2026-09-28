@@ -30,13 +30,19 @@ class CuratorMDTests(unittest.TestCase):
         self.root.mkdir()
         (self.root / "persistence").mkdir()
         for filename in ("AGENTS.md", "SOP.md", "HISTORY.md", "LESSONS-LEARNED.md"):
-            (self.root / "persistence" / filename).write_text(f"# {filename}\n", encoding="utf-8")
+            (self.root / "persistence" / filename).write_text(
+                f"# {filename}\n", encoding="utf-8"
+            )
         (self.root / ".gitignore").write_text(".curatormd/\n", encoding="utf-8")
         subprocess.run(["git", "init", "-q", "-b", "main"], cwd=self.root, check=True)
         subprocess.run(
-            ["git", "config", "user.email", "test@example.invalid"], cwd=self.root, check=True
+            ["git", "config", "user.email", "test@example.invalid"],
+            cwd=self.root,
+            check=True,
         )
-        subprocess.run(["git", "config", "user.name", "CuratorMD test"], cwd=self.root, check=True)
+        subprocess.run(
+            ["git", "config", "user.name", "CuratorMD test"], cwd=self.root, check=True
+        )
         subprocess.run(["git", "add", "."], cwd=self.root, check=True)
         subprocess.run(["git", "commit", "-qm", "baseline"], cwd=self.root, check=True)
         self.plugin_data = tempfile.TemporaryDirectory()
@@ -61,7 +67,9 @@ class CuratorMDTests(unittest.TestCase):
             curatormd.resolve_project_root(str(Path(self.temp_dir.name)))
         alias = Path(self.temp_dir.name) / "project-alias"
         alias.symlink_to(self.root, target_is_directory=True)
-        self.assertEqual(curatormd.resolve_project_root(str(alias)), self.root.resolve())
+        self.assertEqual(
+            curatormd.resolve_project_root(str(alias)), self.root.resolve()
+        )
 
     def test_snapshot_does_not_read_env_values(self):
         """Keep secret-bearing environment values out of snapshots."""
@@ -83,9 +91,9 @@ class CuratorMDTests(unittest.TestCase):
         )
         self.assertTrue(first["written"])
         self.assertTrue(second["duplicate"])
-        record = next((self.root / ".curatormd" / "native-inbox").glob("*.json")).read_text(
-            encoding="utf-8"
-        )
+        record = next(
+            (self.root / ".curatormd" / "native-inbox").glob("*.json")
+        ).read_text(encoding="utf-8")
         self.assertNotIn("super-secret-value", record)
         self.assertIn("[REDACTED]", record)
         self.assertEqual(json.loads(record)["payload"]["response"], "[REDACTED]")
@@ -93,7 +101,10 @@ class CuratorMDTests(unittest.TestCase):
     def test_pending_candidate_is_reprocessable_and_approved_once(self):
         """Keep pending candidates retryable and archive approved records once."""
         payload = {
-            "response": "Implemented a durable curation decision. api_key=super-secret-value",
+            "response": (
+                "Implemented a durable curation decision. api_key="
+                "super-secret-value"
+            ),
             "message": "private task prompt",
             "provider": "openai-codex",
             "profile": "test",
@@ -111,7 +122,9 @@ class CuratorMDTests(unittest.TestCase):
         )
         first = curatormd.curate(str(self.root), profile="test")
         self.assertEqual(len(first["ambiguous"]), 1)
-        inbox = self.root / ".curatormd" / "native-inbox" / f"{capture['record_id']}.json"
+        inbox = (
+            self.root / ".curatormd" / "native-inbox" / f"{capture['record_id']}.json"
+        )
         stored = json.loads(inbox.read_text(encoding="utf-8"))
         self.assertFalse(stored.get("finalized", False))
         self.assertEqual(stored["payload"]["response"], "[REDACTED]")
@@ -128,16 +141,23 @@ class CuratorMDTests(unittest.TestCase):
             self.root, capture["record_id"], "approved", 3, "lessons", profile="test"
         )
         self.assertTrue(duplicate["duplicate"])
-        lesson = (self.root / "persistence" / "LESSONS-LEARNED.md").read_text(encoding="utf-8")
+        lesson = (self.root / "persistence" / "LESSONS-LEARNED.md").read_text(
+            encoding="utf-8"
+        )
         self.assertEqual(lesson.count(f"record_id={capture['record_id']}"), 1)
         observation_dir = (
             curatormd._plugin_data_root(self.root, "test") / "learning" / "observations"
         )
-        observation = json.loads(next(observation_dir.glob("*.json")).read_text(encoding="utf-8"))
+        observation = json.loads(
+            next(observation_dir.glob("*.json")).read_text(encoding="utf-8")
+        )
         self.assertEqual(observation["disposition"], "approved")
         self.assertEqual(observation["archive"], "lessons")
         self.assertFalse(
-            any(key in observation["features"] for key in ("response", "message", "text"))
+            any(
+                key in observation["features"]
+                for key in ("response", "message", "text")
+            )
         )
 
     def test_rejection_records_label_without_archive_write(self):
@@ -174,7 +194,9 @@ class CuratorMDTests(unittest.TestCase):
         observation_dir = (
             curatormd._plugin_data_root(self.root, "test") / "learning" / "observations"
         )
-        observation = json.loads(next(observation_dir.glob("*.json")).read_text(encoding="utf-8"))
+        observation = json.loads(
+            next(observation_dir.glob("*.json")).read_text(encoding="utf-8")
+        )
         self.assertIsNone(observation["archive"])
         self.assertIsNone(observation["corrections"]["archive_changed"])
 
@@ -197,27 +219,38 @@ class CuratorMDTests(unittest.TestCase):
         curatormd.review_candidate(
             self.root, capture["record_id"], "approved", 2, "history", profile="test"
         )
-        history_before = (self.root / "persistence" / "HISTORY.md").read_text(encoding="utf-8")
+        history_before = (self.root / "persistence" / "HISTORY.md").read_text(
+            encoding="utf-8"
+        )
         revised = curatormd.review_candidate(
             self.root, capture["record_id"], "do-not-record", 1, profile="test"
         )
         self.assertEqual(revised["review_revision"], 2)
         self.assertEqual(
-            (self.root / "persistence" / "HISTORY.md").read_text(encoding="utf-8"), history_before
+            (self.root / "persistence" / "HISTORY.md").read_text(encoding="utf-8"),
+            history_before,
         )
         observations = sorted(
-            (curatormd._plugin_data_root(self.root, "test") / "learning" / "observations").glob(
-                "*.json"
-            )
+            (
+                curatormd._plugin_data_root(self.root, "test")
+                / "learning"
+                / "observations"
+            ).glob("*.json")
         )
-        first, second = [json.loads(path.read_text(encoding="utf-8")) for path in observations]
+        first, second = [
+            json.loads(path.read_text(encoding="utf-8")) for path in observations
+        ]
         self.assertFalse(first["active"])
-        self.assertEqual(first["superseded_by_observation_id"], second["observation_id"])
+        self.assertEqual(
+            first["superseded_by_observation_id"], second["observation_id"]
+        )
         self.assertTrue(second["active"])
         self.assertEqual(second["disposition"], "do-not-record")
         self.assertEqual(
             curation_learning._active_rows(
-                self.root, "test", curation_learning.datetime.now(curation_learning.timezone.utc)
+                self.root,
+                "test",
+                curation_learning.datetime.now(curation_learning.timezone.utc),
             )[0]["observation_id"],
             second["observation_id"],
         )
@@ -225,9 +258,15 @@ class CuratorMDTests(unittest.TestCase):
     def test_pending_inbox_records_do_not_expire(self):
         """Retain pending inbox records regardless of their age."""
         capture = curatormd.native_projection_record(
-            str(self.root), "session-c", "agent:end", {"note": "pending"}, profile="test"
+            str(self.root),
+            "session-c",
+            "agent:end",
+            {"note": "pending"},
+            profile="test",
         )
-        path = self.root / ".curatormd" / "native-inbox" / f"{capture['record_id']}.json"
+        path = (
+            self.root / ".curatormd" / "native-inbox" / f"{capture['record_id']}.json"
+        )
         old = 1_600_000_000
         os.utime(path, (old, old))
         self.assertEqual(curatormd._cleanup_inbox(self.root), 0)
@@ -263,7 +302,11 @@ class CuratorMDTests(unittest.TestCase):
             threading.Thread(
                 target=lambda: results.append(
                     curatormd.native_projection_record(
-                        str(self.root), "same-event", "agent:end", payload, profile="shared"
+                        str(self.root),
+                        "same-event",
+                        "agent:end",
+                        payload,
+                        profile="shared",
                     )
                 )
             )
@@ -280,7 +323,9 @@ class CuratorMDTests(unittest.TestCase):
         second_root.mkdir()
         (second_root / "persistence").mkdir()
         for filename in ("AGENTS.md", "SOP.md", "HISTORY.md", "LESSONS-LEARNED.md"):
-            (second_root / "persistence" / filename).write_text(f"# {filename}\n", encoding="utf-8")
+            (second_root / "persistence" / filename).write_text(
+                f"# {filename}\n", encoding="utf-8"
+            )
         subprocess.run(["git", "init", "-q", "-b", "main"], cwd=second_root, check=True)
         subprocess.run(["git", "add", "."], cwd=second_root, check=True)
         subprocess.run(
@@ -301,7 +346,8 @@ class CuratorMDTests(unittest.TestCase):
             str(second_root), "same-event", "agent:end", payload, profile="shared"
         )
         self.assertNotEqual(
-            curatormd._state_path(self.root, "shared"), curatormd._state_path(second_root, "shared")
+            curatormd._state_path(self.root, "shared"),
+            curatormd._state_path(second_root, "shared"),
         )
 
     def test_models_return_finite_normalized_probabilities(self):
@@ -322,7 +368,9 @@ class CuratorMDTests(unittest.TestCase):
                 }
             )
         vocabulary = curation_learning._vocabulary([row["features"] for row in rows])
-        vectors = [curation_learning._vector(row["features"], vocabulary) for row in rows]
+        vectors = [
+            curation_learning._vector(row["features"], vocabulary) for row in rows
+        ]
         approval = curation_learning._fit_binary(rows, vectors, "approved_target")
         priority = curation_learning._fit_ordinal(rows, vectors)
         archive = curation_learning._fit_softmax(
@@ -336,10 +384,14 @@ class CuratorMDTests(unittest.TestCase):
         ]
         self.assertTrue(all(0.0 <= value <= 1.0 for value in probabilities))
         self.assertAlmostEqual(
-            sum(curation_learning._predict_ordinal(priority, probe).values()), 1.0, places=8
+            sum(curation_learning._predict_ordinal(priority, probe).values()),
+            1.0,
+            places=8,
         )
         self.assertAlmostEqual(
-            sum(curation_learning._predict_softmax(archive, probe).values()), 1.0, places=8
+            sum(curation_learning._predict_softmax(archive, probe).values()),
+            1.0,
+            places=8,
         )
         self.assertEqual(approval["status"], "fit")
         self.assertEqual(priority["status"], "fit")
@@ -401,15 +453,20 @@ class CuratorMDTests(unittest.TestCase):
                 profile="test",
             )
 
-        concurrent = [threading.Thread(target=record_outcome, args=(window,)) for window in windows]
+        concurrent = [
+            threading.Thread(target=record_outcome, args=(window,))
+            for window in windows
+        ]
         for thread in concurrent:
             thread.start()
         for thread in concurrent:
             thread.join()
         observation_path = next(
-            (curatormd._plugin_data_root(self.root, "test") / "learning" / "observations").glob(
-                "*.json"
-            )
+            (
+                curatormd._plugin_data_root(self.root, "test")
+                / "learning"
+                / "observations"
+            ).glob("*.json")
         )
         observation = json.loads(observation_path.read_text(encoding="utf-8"))
         self.assertEqual(observation["qa_finalized_windows"], [30, 60, 90, 180])
@@ -424,21 +481,41 @@ class CuratorMDTests(unittest.TestCase):
         qa = curatormd.learning_report(self.root, "test")["qa"]
         self.assertEqual(qa["retrospective_review_count"], 1)
 
-    def test_unreviewed_projection_is_ambiguous_and_not_promoted(self):
-        """Keep incomplete projection payloads out of pending review."""
-        curatormd.native_projection_record(
-            str(self.root), "test-source", "agent:end", {"note": "candidate"}, profile="test"
+    def test_projection_without_candidate_content_is_removed(self):
+        """Remove projection metadata that contains no usable event content."""
+        capture = curatormd.native_projection_record(
+            str(self.root),
+            "test-source",
+            "agent:end",
+            {"note": "candidate"},
+            profile="test",
         )
         result = curatormd.curate(str(self.root), profile="test")
-        self.assertEqual(len(result["ambiguous"]), 1)
+        self.assertEqual(result["empty_removed"], [capture["record_id"]])
+        self.assertEqual(result["ambiguous"], [])
+        self.assertEqual(result["scratch"], [])
+        self.assertFalse(curatormd.pending_reviews(self.root, "test")["records"])
         self.assertEqual(
-            (self.root / "persistence" / "HISTORY.md").read_text(encoding="utf-8"), "# HISTORY.md\n"
+            (self.root / "persistence" / "HISTORY.md").read_text(encoding="utf-8"),
+            "# HISTORY.md\n",
+        )
+        self.assertFalse(
+            (
+                self.root
+                / ".curatormd"
+                / "native-inbox"
+                / f"{capture['record_id']}.json"
+            ).exists()
         )
 
     def test_reviewed_candidate_is_promoted(self):
         """Promote a complete candidate only after explicit human approval."""
         curatormd.native_projection_record(
-            str(self.root), "test-source", "agent:end", {"note": "candidate"}, profile="test"
+            str(self.root),
+            "test-source",
+            "agent:end",
+            {"note": "candidate"},
+            profile="test",
         )
         path = next((self.root / ".curatormd" / "native-inbox").glob("*.json"))
         record = json.loads(path.read_text(encoding="utf-8"))
@@ -461,15 +538,25 @@ class CuratorMDTests(unittest.TestCase):
     def test_uncommitted_knowledge_file_is_a_conflict(self):
         """Refuse to overwrite a canonical file with uncommitted changes."""
         curatormd.native_projection_record(
-            str(self.root), "test-source", "agent:end", {"note": "candidate"}, profile="test"
+            str(self.root),
+            "test-source",
+            "agent:end",
+            {"note": "candidate"},
+            profile="test",
         )
         path = next((self.root / ".curatormd" / "native-inbox").glob("*.json"))
         record = json.loads(path.read_text(encoding="utf-8"))
         record["reviewed"] = True
-        record["candidate"] = {"kind": "history", "title": "Blocked", "content": "Must not append."}
+        record["candidate"] = {
+            "kind": "history",
+            "title": "Blocked",
+            "content": "Must not append.",
+        }
         path.write_text(json.dumps(record), encoding="utf-8")
         history = self.root / "persistence" / "HISTORY.md"
-        history.write_text(history.read_text(encoding="utf-8") + "\nlocal edit\n", encoding="utf-8")
+        history.write_text(
+            history.read_text(encoding="utf-8") + "\nlocal edit\n", encoding="utf-8"
+        )
         result = curatormd.curate(str(self.root), profile="test")
         self.assertEqual(len(result["conflicts"]), 1)
         self.assertNotIn("Blocked", history.read_text(encoding="utf-8"))
@@ -486,7 +573,8 @@ class CuratorMDTests(unittest.TestCase):
         curatormd.curate(str(self.root), profile="test")
         history = self.root / "persistence" / "HISTORY.md"
         history.write_text(
-            history.read_text(encoding="utf-8") + "\nUser's pending edit.\n", encoding="utf-8"
+            history.read_text(encoding="utf-8") + "\nUser's pending edit.\n",
+            encoding="utf-8",
         )
 
         result = curatormd.review_candidate(
@@ -498,7 +586,9 @@ class CuratorMDTests(unittest.TestCase):
         self.assertIn("User's pending edit.", updated)
         self.assertIn("Implemented a durable review recovery feature.", updated)
 
-    def test_changed_target_blocks_recovery_and_correction_supersedes_prepared_transaction(self):
+    def test_changed_target_blocks_recovery_and_correction(
+        self,
+    ):
         """Block stale transaction recovery and allow a corrected review decision."""
         capture = curatormd.native_projection_record(
             str(self.root),
@@ -510,16 +600,24 @@ class CuratorMDTests(unittest.TestCase):
         curatormd.curate(str(self.root), profile="test")
         history = self.root / "persistence" / "HISTORY.md"
         history.write_text(
-            history.read_text(encoding="utf-8") + "\nExisting approved edit.\n", encoding="utf-8"
+            history.read_text(encoding="utf-8") + "\nExisting approved edit.\n",
+            encoding="utf-8",
         )
         with patch.object(
             curatormd,
             "_append_reviewed",
             side_effect=curatormd.CuratorError("simulated interruption"),
         ):
-            with self.assertRaisesRegex(curatormd.CuratorError, "simulated interruption"):
+            with self.assertRaisesRegex(
+                curatormd.CuratorError, "simulated interruption"
+            ):
                 curatormd.review_candidate(
-                    self.root, capture["record_id"], "approved", 2, "history", profile="test"
+                    self.root,
+                    capture["record_id"],
+                    "approved",
+                    2,
+                    "history",
+                    profile="test",
                 )
 
         transaction_dir = (
@@ -532,8 +630,12 @@ class CuratorMDTests(unittest.TestCase):
             history.read_text(encoding="utf-8") + "\nConcurrent edit after approval.\n",
             encoding="utf-8",
         )
-        with self.assertRaisesRegex(curatormd.CuratorError, "unresolved or uncommitted edits"):
-            curatormd.recover_transaction(self.root, capture["record_id"], profile="test")
+        with self.assertRaisesRegex(
+            curatormd.CuratorError, "unresolved or uncommitted edits"
+        ):
+            curatormd.recover_transaction(
+                self.root, capture["record_id"], profile="test"
+            )
 
         rejected = curatormd.review_candidate(
             self.root, capture["record_id"], "do-not-record", 2, profile="test"
@@ -541,10 +643,12 @@ class CuratorMDTests(unittest.TestCase):
         self.assertEqual(rejected["disposition"], "do-not-record")
         self.assertEqual(rejected["review_revision"], 2)
         self.assertEqual(
-            json.loads(transaction_path.read_text(encoding="utf-8"))["status"], "superseded"
+            json.loads(transaction_path.read_text(encoding="utf-8"))["status"],
+            "superseded",
         )
         self.assertNotIn(
-            "Implemented a durable review recovery feature.", history.read_text(encoding="utf-8")
+            "Implemented a durable review recovery feature.",
+            history.read_text(encoding="utf-8"),
         )
 
     def test_defined_sde_parser_preserves_meaning_and_scrubs_secrets(self):
@@ -553,14 +657,17 @@ class CuratorMDTests(unittest.TestCase):
             self.root,
             {
                 "title": "Recover approved SDE transactions",
-                "beginning": "An approved review was stranded after HISTORY.md was already edited.",
+                "beginning": (
+                    "An approved review was stranded after HISTORY.md was "
+                    "already edited."
+                ),
                 "middle": (
-                    "Capture a target hash when approval is prepared; add automatic retry "
-                    "and a manual recovery command."
+                    "Capture a target hash when approval is prepared; "
+                    "add automatic retry and a manual recovery command."
                 ),
                 "end": (
-                    "A changed target remains blocked; an explicit rejection supersedes "
-                    "the prepared approval."
+                    "A changed target remains blocked; an explicit rejection "
+                    "supersedes the prepared approval."
                 ),
                 "rationale": "api_key=super-secret-value",
                 "archive": "history",
@@ -568,9 +675,15 @@ class CuratorMDTests(unittest.TestCase):
             profile="test",
         )
         self.assertTrue(result["written"])
-        self.assertIn("**Beginning — trigger and context:** An approved review", result["content"])
-        self.assertIn("**Middle — decisions and work:** Capture a target hash", result["content"])
-        self.assertIn("**End — outcome and verification:** A changed target", result["content"])
+        self.assertIn(
+            "**Beginning — trigger and context:** An approved review", result["content"]
+        )
+        self.assertIn(
+            "**Middle — decisions and work:** Capture a target hash", result["content"]
+        )
+        self.assertIn(
+            "**End — outcome and verification:** A changed target", result["content"]
+        )
         self.assertNotIn("super-secret-value", result["content"])
         self.assertIn("[REDACTED]", result["content"])
         curatormd.curate(self.root, profile="test")
@@ -578,13 +691,17 @@ class CuratorMDTests(unittest.TestCase):
         self.assertEqual(review["pending_count"], 1)
         pending = review["records"][0]
         self.assertEqual(pending["candidate"]["kind"], "history")
-        self.assertIn("Beginning — trigger and context", pending["candidate"]["content"])
+        self.assertIn(
+            "Beginning — trigger and context", pending["candidate"]["content"]
+        )
         self.assertIn("Middle — decisions and work", pending["candidate"]["content"])
         self.assertIn("End — outcome and verification", pending["candidate"]["content"])
 
     def test_defined_sde_parser_requires_all_chronology_parts(self):
         """Require beginning, middle, and end sections in parsed SDE records."""
-        with self.assertRaisesRegex(ValueError, "sde.middle must be a non-empty string"):
+        with self.assertRaisesRegex(
+            ValueError, "sde.middle must be a non-empty string"
+        ):
             curatormd.parse_defined_sde(
                 self.root,
                 {
@@ -612,7 +729,12 @@ class CuratorMDTests(unittest.TestCase):
         )
         result = curatormd.curate(self.root, profile="test")
         self.assertEqual(result["written"], [])
-        self.assertEqual(len(result["suppressed"]), 1)
+        self.assertEqual(result["suppressed"], [])
+        self.assertEqual(len(result["scratch"]), 1)
+        scratch = self.root / result["scratch"][0]["file"]
+        artifact = json.loads(scratch.read_text(encoding="utf-8"))
+        self.assertEqual(artifact["status"], "awaiting-manual-disposition")
+        self.assertIn("full-thread synthesis", artifact["reason"])
         self.assertFalse(curatormd.pending_reviews(self.root, "test")["records"])
 
 

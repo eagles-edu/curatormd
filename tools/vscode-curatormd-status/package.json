@@ -5,6 +5,11 @@
   "version": "0.2.7",
   "publisher": "curatormd",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eagles-edu/curatormd.git",
+    "directory": "tools/vscode-curatormd-status"
+  },
   "engines": {
     "vscode": ">=1.85.0"
   },

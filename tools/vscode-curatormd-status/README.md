@@ -24,7 +24,7 @@ From the repository root:
 ```bash
 cd tools/vscode-curatormd-status
 npx --yes @vscode/vsce package --no-dependencies
-code --install-extension curatormd-status-0.2.5.vsix
+code --install-extension curatormd-status-0.2.7.vsix
 ```
 
 Reload VS Code after installation. Click the LED for review notes when they
